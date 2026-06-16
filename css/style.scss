@@ -38,10 +38,10 @@ body {
 }
 .cursor {
     position: fixed;
-    left: 0px;
-    top: 0px;
+    transform: translate3d(-50%, -50%, 0); /* 중심점 맞춤 */
     width: 300px;
     pointer-events: none;
+    will-change: transform; /* 브라우저 최적화 힌트 */
     mix-blend-mode: difference;
     height: 300px;
     z-index: 99999;
@@ -79,7 +79,7 @@ body {
     }
 }
 .loding {
-    z-index: 999;
+    z-index: 9999999;
     pointer-events: none;
     width: 100vw;
     height: 100vh;
@@ -197,7 +197,7 @@ body {
             }
         }
     }
-    display: none;
+    opacity: 0;
     position: relative;
     header {
         z-index: 99999999;
@@ -524,6 +524,7 @@ body {
                     transform: translate3d(0, 50%, 0);
 
                     img {
+                        aspect-ratio: 16 / 27;
                         width: min(55vw, 500px);
                         height: auto;
                         object-fit: cover;
@@ -716,6 +717,46 @@ body {
                 }
             }
         }
+        .read_more_btn {
+            position: fixed;
+            left: 0px;
+            top: 0px;
+            transform: translate3d(-50%, -50%, 0); /* 중심점 맞춤 */
+            width: 160px;
+            height: 160px;
+            pointer-events: none;
+            opacity: 0;
+            pointer-events: none;
+            will-change: transform; /* 브라우저 최적화 힌트 */
+            z-index: 999999;
+            background-color: var(--sub-color);
+            mix-blend-mode: difference;
+            border-radius: 100%;
+
+            &.on {
+                opacity: 1;
+            }
+            &::before,
+            &::after {
+                content: "";
+                background: url("../image/hover_arrow.png") no-repeat center/auto 90px;
+                position: absolute;
+                width: 125px;
+                height: 167px;
+                left: 50%;
+                top: 50%;
+            }
+            &::after {
+                transform: translate(-50%, -50%) rotate(45deg);
+            }
+            &::before {
+                background: url("../image/hover.png") no-repeat center/auto 150px;
+                width: 160px;
+                height: 160px;
+                transform: translate(-50%, -50%);
+                animation: spin 8s linear infinite;
+            }
+        }
         .section3 {
             position: relative;
             z-index: 10003;
@@ -724,44 +765,7 @@ body {
             margin-top: 0;
             height: 100vh;
             overflow: hidden;
-            .read_more_btn {
-                position: fixed;
-                top: 0px;
-                left: 0px;
-                width: 160px;
-                height: 160px;
-                pointer-events: none;
-                opacity: 0;
-                z-index: 999999;
-                transform: scale(0);
-                background-color: var(--sub-color);
-                mix-blend-mode: difference;
-                border-radius: 100%;
-                
-                &.on {
-                    transform: scale(1);
-                    opacity: 1;
-                }
-                &::before, &::after {
-                    content: "";
-                    background: url("../image/hover_arrow.png")no-repeat center/auto 90px;
-                    position: absolute;
-                    width: 125px;
-                    height: 167px;
-                    left:50%;
-                    top: 50%;
-                }
-                &::after {
-                    transform: translate(-50%, -50%) rotate(45deg);
-                }
-                &::before {
-                    background: url("../image/hover.png")no-repeat center/auto 150px;
-                    width: 160px;
-                    height: 160px;
-                     transform: translate(-50%, -50%);
-                      animation: spin 8s linear infinite;
-                }
-            }
+            contain: layout;
             .project_wrap {
                 opacity: 0;
                 width: 100%;
@@ -783,6 +787,12 @@ body {
                 background-image: linear-gradient(var(--sub-color), var(--sub-color));
                 background-size: 0% 100%; /* 처음엔 안 칠해짐 */
                 background-repeat: no-repeat;
+                pointer-events: none;
+            }
+            .alert {
+                padding-left: 5vw;
+                font-family: var(--font-kr);
+                color: rgba(255, 255, 255, 0.2);
                 pointer-events: none;
             }
             .works_num {
@@ -838,17 +848,19 @@ body {
                 .project_thumb {
                     width: 100%;
                     height: 100%;
+                    pointer-events: none;
                     overflow: hidden;
                     img {
                         width: 100%;
                         height: 100%;
                         object-fit: cover;
                         object-position: top;
-                      
+                        aspect-ratio: 16 / 9;
                     }
                 }
                 .project_info {
                     position: absolute;
+                    pointer-events: none;
                     mix-blend-mode: difference;
                     left: 10vh;
                     top: 80vh;
@@ -890,6 +902,126 @@ body {
                 }
             }
         }
+        .circle_wrap {
+            width: 100vw;
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 50%;
+            overflow: hidden;
+            transform: translateX(-50%);
+            z-index: 999999;
+
+            pointer-events: none;
+            opacity: 0;
+            .circle {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                width: 100px;
+                height: 100px;
+                transform: translate(-50%, -50%) scale(0);
+                background: var(--main-color);
+                border-radius: 100%;
+            }
+        }
+        .section4 {
+            width: 100vw;
+            height: auto;
+            padding-bottom: 13vh;
+            padding: 0px 5vw;
+            background: var(--black);
+            z-index: 999999;
+            .skills_wrap {
+                width: 100%;
+                height: 100%;
+            }
+            .skills_title {
+                mix-blend-mode: difference;
+                padding-top: 10vh;
+                font-family: var(--font-en);
+                font-weight: 800;
+                font-size: clamp(2rem, 4vw, 4rem);
+                line-height: 1.5;
+                -webkit-text-fill-color: rgba(255, 255, 255, 0.2); /* 흐린 기본 */
+                -webkit-background-clip: text;
+                background-clip: text;
+                background-image: linear-gradient(var(--sub-color), var(--sub-color));
+                background-size: 0% 100%; /* 처음엔 안 칠해짐 */
+                background-repeat: no-repeat;
+                pointer-events: none;
+            }
+            .alert {
+                font-family: var(--font-kr);
+                color: rgba(255, 255, 255, 0.2);
+            }
+            .skills_list {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 60px 70px;
+                margin-bottom: 13vh;
+                align-items: center;
+                margin-top: 10vh;
+
+                padding: 0px 30px;
+                .skills_item {
+                    display: inline-flex;
+                    align-items: center;
+                    border-radius: 100px;
+                    border: 1px solid var(--card12-color);
+                    color: var(--sub-color);
+                    will-change: transform;
+                    line-height: 1.5;
+                    transition:
+                        transform 0.3s,
+                        color 0.3s,
+                        background 0.3s;
+                    &.accent,
+                    &:hover {
+                        background: var(--main-color);
+                        color: var(--sub-color);
+                    }
+                    &.s {
+                        padding: 10px 18px;
+                        font-size: 34px;
+                    } /* 작게 */
+                    &.m {
+                        padding: 12px 24px;
+                        font-size: 49px;
+                    } /* 중간 */
+                    &.l {
+                        padding: 16px 32px;
+                        font-size: 60px;
+                    } /* 크게 */
+                }
+            }
+        }
+        .section5 {
+            border-radius: 0 0 30px 30px;
+            overflow: hidden;
+            z-index: 99999999;
+            height: 100vh;
+            position: relative;
+            background: transparent;
+            .contact_wrap {
+                width: 100%;
+                height: 100%;
+                display: flex;
+                padding: 0 5vw;
+                align-items: center;
+                .contact_title {
+                    font-family: var(--font-en);
+                    font-size: 4rem;
+                    font-weight: 800;
+                    color: var(--black);
+                }
+                p {
+                    color: var(--black);
+                    font-size: 1.1rem;
+                    line-height: 1.6;
+                }
+            }
+        }
     }
 }
 
@@ -909,12 +1041,20 @@ body {
     }
 }
 footer {
+    position: absolute; /* 또는 relative */
+    bottom: 0;
+    width: 100vw;
     height: 100vh;
     background: var(--black);
+    z-index: 9999999999;
 }
 @keyframes spin {
-      from { transform:translate(-50%, -50%) rotate(0deg); }
-    to { transform:translate(-50%, -50%) rotate(360deg); }
+    from {
+        transform: translate(-50%, -50%) rotate(0deg);
+    }
+    to {
+        transform: translate(-50%, -50%) rotate(360deg);
+    }
 }
 @keyframes noise {
     0% {

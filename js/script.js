@@ -1,20 +1,10 @@
-const lenis = new Lenis({
-    duration: 0.8
-});
-lenis.on('scroll', ScrollTrigger.update);
-gsap.ticker.add((time) => {
-    lenis.raf(time * 1000);
-});
-gsap.ticker.lagSmoothing(0);
-document.querySelector("html").style.overflow = "hidden";
-let worksSt;
+let lenis;
+if ('scrollRestoration' in history) {
+    history.scrollRestoration = 'manual';
+}
+window.scrollTo(0, 0);
 // HTML파싱되고 이벤트 시작
 window.addEventListener("DOMContentLoaded", function () {
-    const texts = document.querySelector(".loding .text");
-    const title = document.querySelector(".title");
-    let titleclone = title.cloneNode(true);
-    canvasCut()
-    document.querySelector(".htwo_wrap").appendChild(titleclone);
     const dotWrap = document.querySelector('.works_dot');
     const cardes = document.querySelectorAll(".project_card")
     document.querySelectorAll(".project_card").forEach((card, i) => {
@@ -24,6 +14,15 @@ window.addEventListener("DOMContentLoaded", function () {
         dotWrap.appendChild(li);
         document.querySelector(".project_trach").style.width = (cardes.length * 100) + "vw"
     })
+    gsap.ticker.lagSmoothing(0);
+    document.querySelector("html").style.overflow = "hidden";
+    let worksSt;
+    disableScroll()
+    const texts = document.querySelector(".loding .text");
+    const title = document.querySelector(".title");
+    let titleclone = title.cloneNode(true);
+    canvasCut()
+    document.querySelector(".htwo_wrap").appendChild(titleclone);
 
     let text = texts.textContent;
     let i = 0;
@@ -45,7 +44,7 @@ window.addEventListener("DOMContentLoaded", function () {
                     document.querySelector(".loding").classList.add("active");
                     setTimeout(() => {
                         document.querySelector(".loding").style.display = "none";
-                        document.querySelector("#wrap").style.display = "block";
+                        document.querySelector("#wrap").style.opacity = "1";
                         canvasCut();
                         document.querySelectorAll(".title").forEach((titel) => {
                             fontresize(titel);
@@ -64,6 +63,7 @@ window.addEventListener("DOMContentLoaded", function () {
                             duration: 1,
                             ease: "power4",
                             onComplete: () => {
+
                                 gsap.set('.scroll-wrap .pir', {
                                     height: 'auto'
                                 }); //초기값 셋팅
@@ -146,7 +146,7 @@ window.addEventListener("DOMContentLoaded", function () {
                                     .to(".img_wrap .text", {
                                         height: "auto",
                                         ease: "none",
-                                        duration: 0.5,
+                                        duration: 0.5
                                     }, "<0.5")
                                 const path = document.querySelector('.projects svg path');
                                 const length = path.getTotalLength();
@@ -323,12 +323,13 @@ window.addEventListener("DOMContentLoaded", function () {
                                             scrub: 1,
                                             pin: true,
                                             invalidateOnRefresh: true,
+                                            pinSpacing: true, // ★ 기본값이지만 명시 (점프 방지)
+                                            anticipatePin: 1, // ★ pin 부드럽게 (점프 줄임)
                                             onUpdate: (self) => {
+                                                worksReady = true;
+                                                mouseevent(worksReady)
 
-                                                if (self.progress >= 0.2) {
-                                                    worksReady = true;
-                                                    mouseevent(worksReady)
-                                                }
+
                                             },
                                             onRefresh: (self) => {
                                                 worksSt = self;
@@ -394,6 +395,7 @@ window.addEventListener("DOMContentLoaded", function () {
                                 document.querySelectorAll(".works_dot li").forEach((dotli, i) => {
                                     const cardeles = document.querySelectorAll(".project_trach li")
                                     dotli.addEventListener("click", function () {
+                                        if (!lenis) return;
                                         const st = ScrollTrigger.getById("worksScroll");
                                         console.log("start:", st.start);
 
@@ -410,6 +412,88 @@ window.addEventListener("DOMContentLoaded", function () {
                                         });
                                     })
                                 })
+                                gsap.set(".section4 h2", {
+                                    'background-size': '0% 100%',
+                                });
+                                gsap.set(".skills_item", {
+                                    opacity: 0,
+                                    scale: 0.4
+                                });
+                                gsap.timeline({
+                                        scrollTrigger: {
+                                            trigger: '.section4',
+                                            start: 'top 70%',
+                                            end: 'bottom 30%',
+                                            toggleActions: "play none none reverse", // ★
+                                            // play(들어올때) none none reverse(나갈때 되감기)
+                                        }
+                                    })
+                                    .to(".section4 h2", {
+                                        'background-size': '100% 100%',
+                                        duration: 1
+                                    })
+                                    .to(".skills_item", {
+                                        opacity: 1,
+                                        scale: 1,
+                                        stagger: {
+                                            each: 0.05,
+                                            from: "random"
+                                        }, // 랜덤 등장
+                                        ease: "back.out(1.7)",
+                                        duration: 0.5
+                                    }, "<");
+
+                                gsap.set(".circle_wrap .circle", {
+                                    scale: 0
+                                });
+                                gsap.set(".section5 p", {
+                                    opacity: 0,
+                                    x: 40
+                                });
+                                gsap.set("footer", {
+                                    yPercent: 100
+                                });
+
+                                gsap.timeline({
+                                        scrollTrigger: {
+                                            trigger: '.section5',
+                                            start: 'top 90%',
+                                            end: '+=250%', // 길게 (3단계)
+                                            scrub: 1,
+                                            invalidateOnRefresh: true,
+                                            onEnter: () => gsap.set(".circle_wrap", {
+                                                opacity: 1
+                                            }),
+                                            onLeaveBack: () => gsap.set(".circle_wrap", {
+                                                opacity: 0
+                                            }),
+                                        }
+                                    })
+                                    // 1단계 — 동그라미 채우기
+                                    .to(".circle_wrap .circle", {
+                                        scale: 30,
+                                        ease: 'none',
+                                        duration: 1,
+                                        onStart: () => console.log("circle 시작!")
+                                    })
+                                    .to(".section5 .contact_wrap", {
+                                        yPercent: -100,
+                                        duration: 2
+                                    }, ">0.5")
+                                    // 2단계 — contact 등장
+                                    .to(".section5 p", {
+                                        opacity: 1,
+                                        x: 0,
+                                        stagger: 0.1,
+                                        duration: 1
+                                    }, ">-0.2")
+                                    // 3단계 — footer 올라옴
+                                    .to("footer", {
+                                        yPercent: 0, // 아래 → 제자리 (올라옴)
+                                        ease: 'none',
+                                        duration: 1.5
+                                    }, ">0.5")
+
 
 
 
@@ -446,12 +530,34 @@ window.addEventListener("DOMContentLoaded", function () {
                             delay: 3,
                             ease: "power2.out",
                             onComplete: () => {
+                                endbleScroll()
                                 document.body.style.overflowY = "auto";
                                 document.querySelector("html").style.overflow = "unset";
 
                                 ScrollTrigger.refresh();
+                                lenis = new Lenis({
+                                    duration: 0.8
+                                });
+                                lenis.on('scroll', ScrollTrigger.update);
+                                gsap.ticker.add((time) => {
+                                    lenis.raf(time * 1000);
+                                });
+                                document.querySelectorAll('.menu_list a').forEach((link) => {
+                                    link.addEventListener('click', function (e) {
 
-
+                                        const href = this.getAttribute('href');
+                                        if (href && href.startsWith('#')) {
+                                            e.preventDefault();
+                                            const target = document.querySelector(href);
+                                            if (target) {
+                                                lenis.scrollTo(target, {
+                                                    offset: -100,
+                                                    duration: 1.5,
+                                                });
+                                            }
+                                        }
+                                    });
+                                });
 
 
                             }
@@ -484,21 +590,7 @@ window.addEventListener("load", function () {
         menu.innerHTML = text;
     })
 
-    document.querySelectorAll('.menu_list a').forEach((link) => {
-        link.addEventListener('click', function (e) {
-            const href = this.getAttribute('href');
-            if (href && href.startsWith('#')) {
-                e.preventDefault();
-                const target = document.querySelector(href);
-                if (target) {
-                    lenis.scrollTo(target, {
-                        offset: -100,
-                        duration: 1.5,
-                    });
-                }
-            }
-        });
-    });
+
 })
 // 글자 자르는 js
 function textsclice(el) {
@@ -623,8 +715,7 @@ document.addEventListener("mousemove", function (e) {
     let x = e.clientX - cursorWidth;
     let y = e.clientY - cursorHight;
 
-    cursor.style.left = x + "px";
-    cursor.style.top = y + "px";
+    cursor.style.transform = `translate3d(${x}px, ${y}px, 0)`;
 })
 
 let prevScrollTop = 0;
@@ -773,29 +864,76 @@ function mouseevent(worksReady) {
         1: "https://beahayoung.github.io/BHY.UI",
         2: "https://www.metarock.co.kr/"
     }
-    const cardel = document.querySelectorAll(".project_card");
+    const cardel = document.querySelectorAll(".section3");
     cardel.forEach((c) => {
+        console.log(c)
         c.addEventListener("mouseenter", function () {
-            if (!worksReady) return;
-
             document.querySelector(".cursor").classList.add("on");
             document.querySelector(".read_more_btn").classList.add("on")
         })
         c.addEventListener("mouseleave", function () {
             document.querySelector(".cursor").classList.remove("on");
             document.querySelector(".read_more_btn").classList.remove("on")
+            document.removeEventListener("mousemove", readMore)
         })
     })
-    document.addEventListener("mousemove", (e) => {
-        const readreat = document.querySelector(".read_more_btn").getBoundingClientRect();
-        const readH = readreat.height / 2;
-        const readw = readreat.width / 2;
-        document.querySelector(".read_more_btn").style.left = e.clientX - readw + "px";
-        document.querySelector(".read_more_btn").style.top = e.clientY - readH + "px";
-    })
+    document.addEventListener("mousemove", readMore)
     document.querySelectorAll(".project_trach li").forEach((li, i) => {
         li.addEventListener("click", function () {
             window.location.href = link[i];
         })
     })
 }
+// 섹션3의 마우스 무브이벤트
+function readMore(e) {
+    const readreat = document.querySelector(".read_more_btn").getBoundingClientRect();
+    const readH = readreat.height / 2;
+    const readw = readreat.width / 2;
+    document.querySelector(".read_more_btn").style.transform = `translate3d(${e.clientX - readw}px, ${e.clientY - readH}px, 0)`;
+}
+// 스크롤막기
+function disableScroll() {
+    window.addEventListener("wheel", preventDefault, {
+        passive: false
+    })
+    window.addEventListener("touchmove", preventDefault, {
+        passive: false
+    })
+    window.addEventListener("scroll", preventDefault, {
+        passive: false
+    })
+    console.log("ddd")
+}
+
+function endbleScroll() {
+    window.removeEventListener("wheel", preventDefault)
+    window.removeEventListener("touchmove", preventDefault)
+    window.removeEventListener("scroll", preventDefault)
+    console.log("dd")
+}
+
+function preventDefault(e) {
+    e.preventDefault();
+}
+
+document.querySelectorAll(".skills_item").forEach((tag) => {
+    tag.addEventListener("mousemove", (e) => {
+        const re = tag.getBoundingClientRect();
+        const x = (e.clientX - re.left - re.width / 2) * 0.4;
+        const y = (e.clientY - re.top - re.height / 2) * 0.4;
+        gsap.to(tag, {
+            x,
+            y,
+            duration: 0.3,
+            overwrite: "auto"
+        })
+    })
+    tag.addEventListener("mouseleave", (e) => {
+        gsap.to(tag, {
+            x: 0,
+            y: 0,
+            duration: 0.5,
+            ease: "elastic.out(1,0.4)"
+        })
+    })
+})
