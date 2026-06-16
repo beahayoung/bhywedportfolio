@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BHY WED PORTFOLIO</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/4.0.0-rc.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.15/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.15/dist/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/TextPlugin.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/SplitText.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.9/dist/lenis.min.js"></script>
+
+
+    <script defer src="./js/script.js"></script>
+    <link rel="stylesheet" href="./css/font.css">
+    <link rel="stylesheet" href="./css/reset.css">
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+
+<body>
+    <svg style="display:none" aria-hidden="true">
+        <defs>
+            <filter id="wavy">
+                <feTurbulence type="turbulence" baseFrequency="0.02" numOctaves="3">
+                    <animate attributeName="baseFrequency" dur="0.1s" values="0.02;0.03;0.02"
+                        repeatCount="indefinite" />
+                </feTurbulence>
+                <feDisplacementMap in="SourceGraphic" scale="0" />
+            </filter>
+        </defs>
+    </svg>
+    <div class="loding">
+        <div class="text">
+            BHY PORTFOLIO.
+        </div>
+    </div>
+    <div class="cursor" aria-hidden="true">
+        <span class="pointer"></span>
+    </div>
+    <div id="wrap">
+        <header class="active">
+
+            <span class="line"></span>
+            <div class="list">
+                <h1 class="logo">Ha Young</h1>
+                <ul class="sns item">
+                    <li>
+                        <a href="https://github.com/beahayoung" target="_blank">GITHUB</a>
+                    </li>
+                </ul>
+                <ul class="menu_list item">
+                    <li>
+                        <a href="#about">ABOUT</a>
+                    </li>
+                    <li>
+                        <a href="#career">CAREER</a>
+                    </li>
+                    <li>
+                        <a href="#works">WORKS</a>
+                    </li>
+                    <li>
+                        <a href="#skills">SKILLS</a>
+                    </li>
+                    <li>
+                        <a href="#contact">CONTACT</a>
+                    </li>
+                </ul>
+            </div>
+        </header>
+        <main>
+            <div class="scroll-wrap">
+                <section class="section1">
+                    <canvas id="heroCanvas" aria-hidden="true"></canvas>
+                    <p class="pir">웹 표준과 접근성을 준수하며 인터랙티브한 사용자 경험을 만드는<br class="mo" />웹 퍼블리셔입니다. &#40;지금 현재 리액트도
+                        공부중입니다.&#41;</p>
+                    <div class="title_wrap">
+                        <p class="sub_title"><span>WEB PUBLISHER & FE Dev(Studying React)</span></p>
+                        <div class="htwo_wrap">
+                            <h2 class="title"><span class="title_name1 tit">BHY</span> <span
+                                    class="title_name2 tit">PORTFOLIO</span></h2>
+                        </div>
+                    </div>
+                </section>
+            </div>
+            <div class="img_wrap">
+                <div class="img_ani"></div>
+                <canvas id="cutImage" aria-hidden="true"></canvas>
+                <div class="cut__wrap">
+                    <div class="cut_wrap">
+                        <p class="text">4년차 웹퍼블리셔 배하영입니다.<br />HTML/CSS/JS 퍼블리싱부터 React · Vue UI 구현까지 —<br />교육 콘텐츠
+                            전자물부터 기업
+                            홈페이지까지 다양한 실무를 경험했습니다.</p>
+                    </div>
+                </div>
+            </div>
+            <section class="section2" id="about">
+                <div class="marquee mar1">
+                    <ul class="marquee_inner">
+                        <li>HTML5</li>
+                        <li>CSS3</li>
+                        <li>JAVASCRIPT</li>
+                        <li>JQUERY</li>
+                        <li>GSAP</li>
+                        <li>interaction web</li>
+                        <li>responsive web</li>
+                        <li>web accessibility</li>
+                        <li>Semantic Markup</li>
+                        <li>GIT</li>
+                        <li>FIGMA</li>
+                        <li>ADOBEXD</li>
+                        <li>SVN</li>
+                        <li>VUE Publishing</li>
+                        <li>Studying REACT</li>
+                        <li>HTML5</li>
+                        <li>CSS3</li>
+                        <li>JAVASCRIPT</li>
+                        <li>JQUERY</li>
+                        <li>GSAP</li>
+                        <li>interaction web</li>
+                        <li>responsive web</li>
+                        <li>web accessibility</li>
+                        <li>Semantic Markup</li>
+                        <li>GIT</li>
+                        <li>FIGMA</li>
+                        <li>ADOBEXD</li>
+                        <li>SVN</li>
+                        <li>VUE Publishing</li>
+                        <li>Studying REACT</li>
+                    </ul>
+                </div>
+                <div class="text_box_wrap">
+                    <div class="text_mask_wrap">
+                        <div class="mask">
+                            <h3 class="about_tit text">I LIKE CODING WEB PUBLISHER <br /> FE Dev(Studying React)</h3>
+                        </div>
+                        <div class="mask">
+                            <p class="about_text text">
+                                안녕하세요. 웹 표준과 접근성을 준수하며 인터랙티브한 사용자 경험을 만드는 웹 퍼블리셔 배하영입니다.
+                                메가스터디 엘리하이, 비상교육 등 다양한 프로젝트를 경험했습니다.
+                                현재는 GSAP, React를 공부하며 프론트엔드 개발자로의 전환을 준비하고 있습니다.
+                            </p>
+                        </div>
+                        <button type="button" class="info_btn btn" data-page-link="info">
+                            <div class="char_wrap">Info</div>
+                        </button>
+                    </div>
+                    <figure class="about_pho">
+                        <img src="./image/profile.png">
+                    </figure>
+                </div>
+                <div class="marquee mar2">
+                    <ul class="marquee_inner">
+                        <li>HTML5</li>
+                        <li>CSS3</li>
+                        <li>JAVASCRIPT</li>
+                        <li>JQUERY</li>
+                        <li>GSAP</li>
+                        <li>interaction web</li>
+                        <li>responsive web</li>
+                        <li>web accessibility</li>
+                        <li>Semantic Markup</li>
+                        <li>GIT</li>
+                        <li>FIGMA</li>
+                        <li>ADOBEXD</li>
+                        <li>SVN</li>
+                        <li>VUE Publishing</li>
+                        <li>Studying REACT</li>
+                        <li>HTML5</li>
+                        <li>CSS3</li>
+                        <li>JAVASCRIPT</li>
+                        <li>JQUERY</li>
+                        <li>GSAP</li>
+                        <li>interaction web</li>
+                        <li>responsive web</li>
+                        <li>web accessibility</li>
+                        <li>Semantic Markup</li>
+                        <li>GIT</li>
+                        <li>FIGMA</li>
+                        <li>ADOBEXD</li>
+                        <li>SVN</li>
+                        <li>VUE Publishing</li>
+                        <li>Studying REACT</li>
+                    </ul>
+                </div>
+                <div class="projects" id="career">
+
+                    <svg preserveAspectRatio="none" viewBox="0 0 1400 4000" aria-hidden="true" fill="none"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M-100 49.3547C206.005 29.851 475.009 72.7056 497.005 241.706C557.004 702.701 397.005 622.878 384.005 586.878C298.913 351.241 630.005 305.452 704.005 395.878C778.005 486.304 820.422 569.456 776.005 720.878C754.005 795.878 567.005 1166.88 588.005 1364.97C607.969 1553.28 822.005 2399.33 1214 2191.88C1292 2150.6 1444.2 2010.48 1593 2056.88C1779 2114.88 1817 2325.88 1880 2318.88"
+                            stroke="black" stroke-width="100" stroke-linecap="round" />
+                    </svg>
+                    <div class="inner">
+                        <div class="mainText">
+                            <h2 class="works">
+                                CAREER
+                            </h2>
+                            <p>이제까지의 저의 여정 · 마우스를 올려보세요</p>
+                        </div>
+                        <ul class="works_list">
+                            <li class="works_item">
+                                <div class="card_inner">
+                                    <div class="work_label">
+                                        <span class="num">07</span>
+                                        <span class="label_en">CAREER</span>
+                                        <span class="period">2024.03 ~ 2025.11</span>
+                                    </div>
+                                    <h3 class="works_sub">모노브레인</h3>
+                                    <p class="works_cont">웹퍼블리셔 · 메가스터디 엘리하이 · 비상교육 전자저작물</p>
+                                    <div class="tags">
+                                        <span>HTML</span><span>CSS</span><span>jQuery</span>
+                                        <span>JavaScript</span><span>웹접근성</span>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <li class="works_item">
+                                <div class="card_inner">
+                                    <div class="work_label">
+                                        <span class="num">06</span>
+                                        <span class="label_en">CAREER</span>
+                                        <span class="period">2022.07 ~ 2023.08</span>
+                                    </div>
+                                    <h3 class="works_sub">주식회사 메타록</h3>
+                                    <p class="works_cont">PD Lab 연구원 · 홈페이지 디자인·퍼블리싱 · 지스타 부스</p>
+                                    <div class="tags">
+                                        <span>HTML</span><span>CSS</span><span>jQuery</span>
+                                        <span>카페24</span><span>디자인</span>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <li class="works_item">
+                                <div class="card_inner">
+                                    <div class="work_label">
+                                        <span class="num">05</span>
+                                        <span class="label_en">CAREER</span>
+                                        <span class="period">2020.11 ~ 2021.11</span>
+                                    </div>
+                                    <h3 class="works_sub">한약 한뜻</h3>
+                                    <p class="works_cont">사무보조 · 고도몰 홈페이지 관리 · 광고/리플렛 디자인</p>
+                                    <div class="tags">
+                                        <span>고도몰</span><span>퍼블리싱</span><span>디자인</span>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <li class="works_item gray">
+                                <div class="card_inner">
+                                    <div class="work_label">
+                                        <span class="num">04</span>
+                                        <span class="label_en">PROGRAMMING</span>
+                                        <span class="period">2015.07</span>
+                                    </div>
+                                    <h3 class="works_sub">OCJP - ORACLE</h3>
+                                    <p class="works_cont">Oracle Certified Java Programmer</p>
+                                </div>
+                            </li>
+
+                            <li class="works_item gray">
+                                <div class="card_inner">
+                                    <div class="work_label">
+                                        <span class="num">03</span>
+                                        <span class="label_en">LICENSE</span>
+                                        <span class="period">2015 ~ 2020</span>
+                                    </div>
+                                    <h3 class="works_sub">국가공인 자격증</h3>
+                                    <p class="works_cont">GTQ 포토샵·일러스트 1급 · ITQ 한글 · SMAT 3급</p>
+                                    <div class="tags">
+                                        <span>GTQ 1급</span><span>ITQ</span><span>SMAT</span>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <li class="works_item gray">
+                                <div class="card_inner">
+                                    <div class="work_label">
+                                        <span class="num">02</span>
+                                        <span class="label_en">CERTIFICATE</span>
+                                        <span class="period">2017 ~ 2021</span>
+                                    </div>
+                                    <h3 class="works_sub">기능사 자격증</h3>
+                                    <p class="works_cont">웹디자인 기능사 · 컴퓨터그래픽스운용기능사</p>
+                                    <div class="tags">
+                                        <span>웹디자인</span><span>퍼블리싱</span>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <li class="works_item gray">
+                                <div class="card_inner">
+                                    <div class="work_label">
+                                        <span class="num">01</span>
+                                        <span class="label_en">EDUCATION</span>
+                                        <span class="period">2020.04 ~ 2020.08</span>
+                                    </div>
+                                    <h3 class="works_sub">연세직업전문학교</h3>
+                                    <p class="works_cont">웹디자인 · 퍼블리셔 전문가 양성 과정 이수</p>
+                                    <div class="tags">
+                                        <span>웹디자인</span><span>HTML</span><span>CSS</span><span>JQUERY</span><span>JAVASCRIPT</span><span>일러스트</span><span>포토샵</span>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            <section class="section3" id="works">
+                <div class="read_more_btn"></div>
+                <div class="project_wrap">
+                    <h2 class="project_title">WORKS</h2>
+                    <ul class="works_dot">
+                    </ul>
+                    <div class="works_num"><span class="number"></span> / <span class="len"></span></div>
+                    <ul class="project_trach">
+                         <li class="project_card">
+                            <div class="project_thumb">
+                                <img src="./image/p2.webp" alt="BHY Portfolio">
+                            </div>
+                            <div class="project_info">
+                                <span class="cate">Interactive Portfolio</span>
+                                <h3>BHY Portfolio</h3>
+                                <p>스크롤 인터랙션 기반 포트폴리오<br />(현재 보고 계신 사이트입니다)</p>
+                                <div class="cap">
+                                    <span>GSAP</span>
+                                    <span>ScrollTrigger</span>
+                                    <span>Lenis</span>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="project_card">
+                            <div class="project_thumb">
+                                <img src="./image/p3.webp" alt="BHYUI">
+                            </div>
+                            <div class="project_info">
+                                <span class="cate">UI Component Library</span>
+                                <h3>BHY.UI</h3>
+                                <p>24개 UI 컴포넌트 + 다크모드<br />JSON 기반 코드뷰어 직접 구현</p>
+                                <div class="cap">
+                                    <span>HTML</span>
+                                    <span>SCSS</span>
+                                    <span>CSS3</span>
+                                    <span>JQUERY</span>
+                                    <span>JAVASCRIPT</span>
+                                    <span>PRETTIEN</span>
+                                    <span>JSON</span>
+                                </div>
+                       
+                            </div>
+                        </li>
+                        <li class="project_card">
+                            <div class="project_thumb">
+                                <img src="./image/p1.webp" alt="메타록홈페이지">
+                            </div>
+                            <div class="project_info">
+                                <span class="cate">Company Website</span>
+                                <h3>메타록 회사 홈페이지</h3>
+                                <p>AI·메타버스 기업 브랜드 사이트<br />반응형 디자인 및 퍼블리싱</p>
+                                <div class="cap">
+                                    <span>HTML</span>
+                                    <span>CSS</span>
+                                    <span>JQUERY</span>
+                                    <span>JavaScript</span>
+                                </div>
+                
+                            </div>
+                        </li>
+                                        
+                        <li class="project_card">
+                            <div class="project_thumb">
+                                <img src="./image/p3.webp" alt="영화검색앱">
+                            </div>
+                            <div class="project_info">
+                                <span class="cate">React App</span>
+                                <h3>영화 검색 앱</h3>
+                                <p>TMDB API 기반 영화 검색<br />React 학습 프로젝트 (진행 중)</p>
+                                <div class="cap">
+                                    <span>REACT</span>
+                                    <span>REST API</span>
+                                </div>
+                         
+                            </div>
+                        </li>
+                        <li class="project_card">
+                            <div class="project_thumb">
+                                <!-- <img src="./image/p3.webp"> -->
+                            </div>
+                            <div class="project_info">
+                                <span class="cate">준비중..</span>
+                                <h3>준비중</h3>
+                                <p>준비중..</p>
+                                <div class="cap">
+                                    <span></span>
+                                    <span></span>
+                                </div>
+                         
+                            </div>
+                        </li>
+                        
+                    </ul>
+                </div>
+            </section>
+            <section class="section4" id="skills">
+                
+            </section>
+            <section class="section5" id="contact">
+                <div class="circle"></div>
+                <div class="contact_wrap">
+
+                </div>
+            </section>
+        </main>
+        <div class="link_body">
+            <p class="txt"></p>
+        </div>
+        <footer>
+            fgdf
+        </footer>
+    </div>
+</body>
+
+</html>

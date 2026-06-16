@@ -1,0 +1,801 @@
+const lenis = new Lenis({
+    duration: 0.8
+});
+lenis.on('scroll', ScrollTrigger.update);
+gsap.ticker.add((time) => {
+    lenis.raf(time * 1000);
+});
+gsap.ticker.lagSmoothing(0);
+document.querySelector("html").style.overflow = "hidden";
+let worksSt;
+// HTML파싱되고 이벤트 시작
+window.addEventListener("DOMContentLoaded", function () {
+    const texts = document.querySelector(".loding .text");
+    const title = document.querySelector(".title");
+    let titleclone = title.cloneNode(true);
+    canvasCut()
+    document.querySelector(".htwo_wrap").appendChild(titleclone);
+    const dotWrap = document.querySelector('.works_dot');
+    const cardes = document.querySelectorAll(".project_card")
+    document.querySelectorAll(".project_card").forEach((card, i) => {
+        const li = document.createElement("li");
+        if (i === 0) li.classList.add("on");
+        li.setAttribute("data-index", i);
+        dotWrap.appendChild(li);
+        document.querySelector(".project_trach").style.width = (cardes.length * 100) + "vw"
+    })
+
+    let text = texts.textContent;
+    let i = 0;
+    const loding = setInterval(() => {
+        texts.textContent = text.slice(0, ++i);
+        if (i >= text.length) {
+            clearInterval(loding);
+            gsap.fromTo("#wavy feDisplacementMap", {
+                attr: {
+                    scale: 40
+                },
+            }, {
+                attr: {
+                    scale: 0
+                },
+                duration: 1,
+                ease: "power1.inOut",
+                onComplete: () => {
+                    document.querySelector(".loding").classList.add("active");
+                    setTimeout(() => {
+                        document.querySelector(".loding").style.display = "none";
+                        document.querySelector("#wrap").style.display = "block";
+                        canvasCut();
+                        document.querySelectorAll(".title").forEach((titel) => {
+                            fontresize(titel);
+                        })
+                        let error = window.innerWidth > 1920 ? 100 : 0;
+                        const title_p = document.querySelector(".scroll-wrap .title_wrap").getBoundingClientRect();
+                        const headerel = document.querySelector("header").offsetHeight;
+                        const widowhE = window.innerHeight - headerel;
+                        const t = widowhE - title_p.bottom - title_p.height - error
+
+
+
+
+                        gsap.to(".scroll-wrap .title_wrap", {
+                            y: t,
+                            duration: 1,
+                            ease: "power4",
+                            onComplete: () => {
+                                gsap.set('.scroll-wrap .pir', {
+                                    height: 'auto'
+                                }); //초기값 셋팅
+                                gsap.set('.img_wrap .text', {
+                                    height: "0",
+
+                                }); //초기값 셋팅
+                                gsap.set("#cutImage", {
+                                    opacity: 0,
+
+                                })
+                                gsap.set(".img_wrap .img_ani", {
+                                    opacity: 0,
+
+                                })
+
+                                ScrollTrigger.refresh();
+                                gsap.timeline({
+                                        scrollTrigger: {
+                                            trigger: '.scroll-wrap',
+                                            pin: true,
+                                            start: 'top top',
+                                            end: '+=200%',
+                                            scrub: 1,
+                                            onUpdate: (self) => {
+                                                // console.log('progress:', self.progress); // ← 추가
+                                                if (self.progress > 0.4) {
+
+                                                    const cutProgress = (self.progress - 0.4) * 3;
+                                                    const index = Math.min(
+                                                        Math.floor(cutProgress * imgTotal),
+                                                        imgTotal - 1
+                                                    );
+                                                    const scale = cutProgress * 0.9;
+                                                    drawFrame(index, scale);
+
+                                                }
+
+
+                                            },
+                                            onLeave: (self) => {
+
+                                            }
+
+
+
+                                        }
+                                    })
+
+                                    .to(".scroll-wrap .pir", {
+                                        height: 0,
+                                        ease: "none",
+                                        duration: 1
+                                    })
+                                    .to(".scroll-wrap .sub_title", {
+                                        height: 0,
+                                        ease: "none",
+                                        duration: 1
+                                    }, "<")
+                                    .to(".scroll-wrap .title_wrap", {
+                                        y: 0,
+                                        ease: "none",
+                                        duration: 1
+                                    }, "<")
+                                    .to(".scroll-wrap .title_name1", {
+                                        x: () => -window.innerWidth,
+                                        ease: "none",
+                                        duration: 1
+                                    }, ">")
+                                    .to(".scroll-wrap .title_name2", {
+                                        x: () => window.innerWidth,
+                                        ease: "none",
+                                        duration: 1
+                                    }, "<")
+                                    .to("#cutImage", {
+                                        opacity: 1,
+                                        ease: "none",
+                                        duration: 1
+                                    }, "<")
+                                    .to(".img_wrap .text", {
+                                        height: "auto",
+                                        ease: "none",
+                                        duration: 0.5,
+                                    }, "<0.5")
+                                const path = document.querySelector('.projects svg path');
+                                const length = path.getTotalLength();
+                                gsap.set('.section2 .mar1', {
+                                    xPercent: -100
+                                }); //초기값 셋팅
+                                gsap.set('.section2 .mar2', {
+                                    xPercent: 100
+                                }); //초기값 셋팅
+                                gsap.set(path, {
+                                    strokeDasharray: length,
+                                    strokeDashoffset: length
+                                })
+                                gsap.set(".pro_item", {
+                                    x: "80px",
+                                })
+                                gsap.set(".section2 .projects", {
+                                    opacity: 0,
+                                    filter: "blur(20px)",
+                                });
+
+                                gsap.timeline({
+                                        scrollTrigger: {
+                                            trigger: '.section2',
+                                            start: 'top 80%', //함수로 쓰면 리플레쉬마다 재계산
+                                            end: '+=200%',
+                                            scrub: 1,
+
+                                            invalidateOnRefresh: true,
+
+                                        }
+                                    })
+                                    .to(".img_wrap .text", {
+                                        opacity: 0,
+                                        y: -50,
+                                        duration: 0.8,
+                                        immediateRender: false
+                                    })
+                                    .to("#cutImage", {
+                                        opacity: 0,
+                                        ease: "none",
+                                        duration: 1
+                                    }, "<")
+                                    .to(".img_wrap", {
+                                        y: "-50vh",
+                                        force3D: true,
+                                        duration: 5,
+                                    }, "<")
+                                    .to(".section2 .mar1", {
+                                        xPercent: 0,
+                                        ease: "none",
+                                        duration: 1
+                                    }, "<")
+                                    .fromTo(".img_wrap .img_ani", {
+                                        backdropFilter: "blur(0px)",
+                                        opacity: 0
+                                    }, {
+                                        opacity: 0.7,
+                                        backdropFilter: "blur(16px)",
+                                        duration: 1,
+                                        delay: 2
+                                    }, "<")
+                                    .to(".about_pho", {
+                                        opacity: 1,
+                                        y: "0%",
+                                        force3D: true,
+                                        filter: "blur(0px)",
+                                        duration: 0.8,
+                                        delay: 2
+                                    }, ">")
+                                    .to(".section2 .text_mask_wrap", {
+                                        opacity: 1,
+                                        y: "0%",
+                                        force3D: true,
+                                        filter: "blur(0px)",
+                                        duration: 0.8,
+                                    }, "<")
+                                    .fromTo(".section2 .mask .text", {
+                                        'background-size': '0 100%'
+                                    }, {
+                                        'background-size': '100% 100%',
+                                        stagger: 0.5,
+                                        duration: 1,
+                                        ease: "none"
+                                    }, ">-0.7")
+                                    .to(".section2 .mar2", {
+                                        xPercent: 0,
+                                        ease: "none",
+                                        duration: 1
+                                    }, ">")
+                                    .to(".section2 .projects", {
+                                        opacity: 1,
+                                        filter: "blur(0px)",
+                                        ease: "none",
+                                        duration: 1,
+                                        onComplete: () => ScrollTrigger.refresh()
+                                    }, ">+0.8")
+
+                                gsap.set(".section3 .project_wrap", {
+                                    opacity: 0,
+                                    filter: "blur(20px)",
+                                });
+                                gsap.set(".projects h2", {
+                                    'background-size': '0% 100%',
+                                });
+                                let currentpro = -1;
+                                // const project = document.querySelector()
+                                gsap.timeline({
+                                        scrollTrigger: {
+                                            trigger: '.projects',
+                                            start: 'top 80%', //함수로 쓰면 리플레쉬마다 재계산
+                                            end: 'bottom bottom',
+                                            scrub: 1,
+                                            invalidateOnRefresh: true,
+
+                                        }
+                                    })
+
+                                    .to(".projects h2", {
+                                        'background-size': '100% 100%',
+                                        ease: 'none',
+                                        duration: 1
+                                    })
+                                    .to(path, {
+                                        strokeDashoffset: 0,
+                                        ease: 'none',
+                                        duration: 4
+                                    }, "<")
+                                    .to(".section3 .project_wrap", {
+                                        opacity: 1,
+                                        filter: "blur(0)"
+                                    })
+
+
+                                gsap.utils.toArray(".works_item").forEach((selector, i, arr) => {
+
+                                    selector.style.top = (80 + i * 50) + "px";
+                                    gsap.set(selector, {
+                                        y: 0,
+                                    })
+                                    gsap.timeline({
+                                            scrollTrigger: {
+                                                trigger: arr[i + 1],
+                                                start: "top 80%",
+                                                end: "top top",
+                                                scrub: true,
+                                            }
+                                        })
+                                        .to(selector, {
+                                            backgroundColor: "#000",
+                                            ease: 'none',
+                                            duration: 0.1
+                                        })
+
+                                })
+                                gsap.set(".section3 h2", {
+                                    'background-size': '0% 100%',
+                                });
+                                gsap.set(".works_num,.works_dot", {
+                                    opacity: 0
+                                });
+                                gsap.set(".section3 .project_trach li:first-child .project_info", {
+                                    height: 0
+                                });
+                                const track = document.querySelector('.project_trach');
+                                const cards = gsap.utils.toArray('.project_card');
+                                let worksReady = false;
+                                gsap.timeline({
+                                        scrollTrigger: {
+                                            id: "worksScroll",
+                                            trigger: '.section3',
+                                            start: 'top top', //함수로 쓰면 리플레쉬마다 재계산
+                                            end: () => '+=' + (track.scrollWidth - window.innerWidth + window.innerHeight),
+                                            scrub: 1,
+                                            pin: true,
+                                            invalidateOnRefresh: true,
+                                            onUpdate: (self) => {
+
+                                                if (self.progress >= 0.2) {
+                                                    worksReady = true;
+                                                    mouseevent(worksReady)
+                                                }
+                                            },
+                                            onRefresh: (self) => {
+                                                worksSt = self;
+                                            }
+
+                                        }
+                                    })
+                                    .to(".section3 h2", {
+                                        'background-size': '100% 100%',
+                                        ease: 'none',
+                                        duration: 1
+                                    })
+                                    .to(".section3 .project_wrap", {
+                                        opacity: 1,
+                                        filter: "blur(0)"
+                                    })
+                                    .fromTo(".project_card:first-child .project_thumb", {
+                                        scale: 0,
+                                        opacity: 0,
+                                        transformOrigin: "center center"
+                                    }, {
+                                        opacity: 1,
+                                        scale: 1,
+                                        duration: 1,
+                                        ease: "none",
+                                        onComplete: () => {
+
+                                        }
+                                    }, "-0.5")
+                                    .to(".section3 .project_trach li:first-child .project_info", {
+                                        height: "auto"
+                                    }, ">")
+                                    .to(".works_num,.works_dot", {
+                                        opacity: 1
+                                    }, "<")
+                                    .to(track, {
+                                        x: () => -(track.scrollWidth - window.innerWidth),
+                                        ease: 'none',
+                                        duration: 4,
+                                        onUpdate: function () {
+                                            const p = this.progress();
+                                            const idx = Math.round(p * (cards.length - 1));
+                                            const numel = document.querySelector(".works_num");
+
+                                            if (numel) {
+                                                numel.querySelector(".number").textContent = "0" + (idx + 1)
+                                                numel.querySelector(".len").textContent = "0" + cards.length;
+                                            }
+                                            document.querySelectorAll(".works_dot li").forEach((dot, i) => {
+                                                dot.classList.toggle('on', i === idx);
+
+                                            })
+                                            if (p > 0.2) {
+                                                cards.forEach((card, i) => {
+                                                    const target = card.querySelector(".project_info");
+                                                    if (i === 0) return;
+                                                    target.classList.toggle('show', i === idx)
+                                                })
+                                            }
+
+                                        }
+                                    });
+                                document.querySelectorAll(".works_dot li").forEach((dotli, i) => {
+                                    const cardeles = document.querySelectorAll(".project_trach li")
+                                    dotli.addEventListener("click", function () {
+                                        const st = ScrollTrigger.getById("worksScroll");
+                                        console.log("start:", st.start);
+
+                                        if (!st) return;
+
+                                        const moveStart = 0.335; // 가로 시작 지점
+                                        const cardRatio = i / (cards.length - 1);
+                                        const cardProgress = moveStart + (1 - moveStart) * cardRatio;
+                                        const target = st.start + (st.end - st.start) * cardProgress;
+
+                                        lenis.scrollTo(target, {
+                                            duration: 1.2,
+                                            force: true
+                                        });
+                                    })
+                                })
+
+
+
+
+
+
+                                ScrollTrigger.refresh();
+                            }
+                        })
+
+                        gsap.to(".scroll-wrap .sub_title span", {
+                            opacity: 1,
+                            y: 0,
+                            rotation: 0,
+                            duration: 0.3,
+                            delay: 1,
+                            ease: "power2.out"
+                        })
+                        gsap.to(".scroll-wrap .pir", {
+                            height: "auto",
+                            duration: 0.3,
+                            delay: 1,
+                            ease: "power2.out"
+                        })
+                        gsap.to("header", {
+                            width: "100%",
+                            duration: 0.3,
+                            delay: 2,
+                            ease: "power2.out"
+                        })
+                        gsap.to("header .list", {
+                            opacity: 1,
+                            duration: 0.2,
+                            delay: 3,
+                            ease: "power2.out",
+                            onComplete: () => {
+                                document.body.style.overflowY = "auto";
+                                document.querySelector("html").style.overflow = "unset";
+
+                                ScrollTrigger.refresh();
+
+
+
+
+                            }
+                        })
+
+
+
+
+
+                    }, 350)
+                }
+            });
+        }
+    }, 50);
+})
+window.addEventListener("load", function () {
+    imageload();
+    canvasCut();
+    const charel = document.querySelector(".char_wrap")
+    textsclice(charel)
+    setTimeout(() => {
+        ScrollTrigger.refresh();
+    }, 500);
+    document.querySelectorAll(".item li a").forEach((menu, id) => {
+        let text = menu.textContent.split("").map((c, i) =>
+            c === " " ?
+            "" : `<span style="--char-index:${i}" data-char="${c}">${c}</span>`
+        ).join("");
+
+        menu.innerHTML = text;
+    })
+
+    document.querySelectorAll('.menu_list a').forEach((link) => {
+        link.addEventListener('click', function (e) {
+            const href = this.getAttribute('href');
+            if (href && href.startsWith('#')) {
+                e.preventDefault();
+                const target = document.querySelector(href);
+                if (target) {
+                    lenis.scrollTo(target, {
+                        offset: -100,
+                        duration: 1.5,
+                    });
+                }
+            }
+        });
+    });
+})
+// 글자 자르는 js
+function textsclice(el) {
+    let textslice = el.textContent.split("").map((c, i) =>
+        c === " " ?
+        "" : `<span style="--char-index:${i}" data-char="${c}">${c}</span>`
+    ).join("");
+    el.innerHTML = textslice;
+}
+window.addEventListener("load", function () {
+
+})
+// 글자 사이즈 js
+function fontresize(el) {
+    el.style.fontSize = "100px";
+    el.style.letterSpacing = "0";
+
+    const elparentWindth = el.offsetWidth;
+    const inner = window.innerWidth - 60;
+    const fontsize = inner / elparentWindth;
+    const newvw = (100 * fontsize).toFixed(2);
+
+    setTimeout(() => {
+        el.style.fontSize = Math.trunc((parseFloat(newvw) / window.innerWidth * 100).toFixed(2)) + "vw";
+    }, 100)
+
+}
+// 파티클
+const canvas = document.getElementById('heroCanvas');
+const ctx = canvas.getContext('2d');
+let W, H, particles = [];
+
+function resizeCanvas() {
+    W = canvas.width = window.innerWidth;
+    H = canvas.height = window.innerHeight;
+}
+resizeCanvas();
+window.addEventListener('resize', resizeCanvas);
+
+class Particle {
+    constructor() {
+        this.reset();
+    }
+    reset() {
+        this.x = Math.random() * W;
+        this.y = Math.random() * H;
+        this.r = Math.random() * 1.5 + .3;
+        this.vx = (Math.random() - .5) * .3;
+        this.vy = (Math.random() - .5) * .3;
+        this.alpha = Math.random() * .5 + .1;
+        // this.color = Math.random() > .5 ? '#eee' : '#eee';
+        this.color = '#eee';
+    }
+    update() {
+        this.x += this.vx;
+        this.y += this.vy;
+        if (this.x < 0 || this.x > W || this.y < 0 || this.y > H) this.reset();
+    }
+    draw() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+        ctx.fillStyle = this.color;
+        ctx.globalAlpha = this.alpha;
+        ctx.fill();
+    }
+}
+
+for (let i = 0; i < 120; i++) particles.push(new Particle());
+
+// mouse repel
+let mx = W / 2,
+    my = H / 2;
+window.addEventListener('mousemove', e => {
+    mx = e.clientX;
+    my = e.clientY;
+});
+
+function drawLines() {
+    for (let i = 0; i < particles.length; i++) {
+        for (let j = i + 1; j < particles.length; j++) {
+            const dx = particles[i].x - particles[j].x;
+            const dy = particles[i].y - particles[j].y;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+            if (dist < 90) {
+                ctx.beginPath();
+                ctx.moveTo(particles[i].x, particles[i].y);
+                ctx.lineTo(particles[j].x, particles[j].y);
+                ctx.strokeStyle = '#F87B1B';
+                ctx.globalAlpha = (1 - dist / 90) * .08;
+                ctx.lineWidth = .5;
+                ctx.stroke();
+            }
+        }
+    }
+}
+
+function animParticles() {
+    ctx.clearRect(0, 0, W, H);
+    particles.forEach(p => {
+        // mouse repel
+        const dx = p.x - mx,
+            dy = p.y - my;
+        const d = Math.sqrt(dx * dx + dy * dy);
+        if (d < 100) {
+            p.x += dx / d * 1.2;
+            p.y += dy / d * 1.2;
+        }
+        p.update();
+        p.draw();
+    });
+    drawLines();
+    ctx.globalAlpha = 1;
+    requestAnimationFrame(animParticles);
+}
+animParticles();
+
+document.addEventListener("mousemove", function (e) {
+    const cursor = document.querySelector(".cursor");
+    const cursordata = cursor.getBoundingClientRect();
+    let cursorWidth = cursordata.width / 2;
+    let cursorHight = cursordata.height / 2;
+    let x = e.clientX - cursorWidth;
+    let y = e.clientY - cursorHight;
+
+    cursor.style.left = x + "px";
+    cursor.style.top = y + "px";
+})
+
+let prevScrollTop = 0;
+document.addEventListener("scroll", function () {
+    let nowScrollTop = $(window).scrollTop();
+    if (nowScrollTop < prevScrollTop) {
+        $("header").addClass("active");
+    } else {
+        $("header").removeClass("active");
+    }
+    prevScrollTop = nowScrollTop;
+})
+const imgTotal = 38;
+const images = [];
+let imageimg;
+// canvas cut
+const cut = document.querySelector("#cutImage");
+const cx = cut.getContext('2d');
+
+function canvasCut() {
+
+    cut.width = window.innerWidth;
+    cut.height = window.innerHeight;
+
+}
+
+function imageload() {
+    for (let i = 0; i < imgTotal; i++) {
+        const img = new Image();
+        img.src = `./image/steps/u${i + 1}.webp`;
+        images.push(img)
+    }
+}
+
+function drawFrame(index, scale) {
+    if (!images[index]?.complete || scale <= 0) return;
+    cx.clearRect(0, 0, cut.width, cut.height);
+
+    const img = images[index];
+    const dw = cut.width * scale;
+    const dh = cut.height * scale;
+    const dx = (cut.width - dw) / 2;
+    const dy = (cut.height - dh) / 2;
+
+    // cover: 비율 유지 center crop
+    const imgAspect = img.naturalWidth / img.naturalHeight;
+    const destAspect = dw / dh;
+    let sw, sh, sx, sy;
+    if (imgAspect > destAspect) {
+        sh = img.naturalHeight;
+        sw = sh * destAspect;
+        sx = (img.naturalWidth - sw) / 2;
+        sy = 0;
+    } else {
+        sw = img.naturalWidth;
+        sh = sw / destAspect;
+        sx = 0;
+        sy = (img.naturalHeight - sh) / 2;
+    }
+    cx.drawImage(img, sx, sy, sw, sh, dx, dy, dw, dh);
+}
+window.addEventListener("resize", canvasCut);
+
+// marquee 애니메이션
+
+const tween = gsap.to(".marquee_inner", {
+    xPercent: -50,
+    ease: 'none',
+    duration: 15,
+    repeat: -1
+})
+
+document.querySelector(".marquee").addEventListener('mouseenter', function () {
+    gsap.to(tween, {
+        timeScale: 0,
+        duration: 0.5
+    });
+})
+document.querySelector(".marquee").addEventListener('mouseleave', function () {
+    gsap.to(tween, {
+        timeScale: 1,
+        duration: 0.5
+    });
+})
+let direction;
+ScrollTrigger.create({
+    onUpdate: (self) => {
+
+        if (self.direction !== direction) {
+            direction = self.direction;
+            gsap.to(tween, {
+                timeScale: direction,
+                duration: 0.4
+            });
+        }
+    }
+})
+// link 클릭했을때 이동하는 애니메이션
+document.querySelectorAll(".btn").forEach((btn) => {
+    btn.addEventListener("click", function () {
+        let linkdata = this.dataset.pageLink;
+        let textcont = this.textContent;
+        let fontS = window.getComputedStyle(this).fontSize;;
+        const btnEl = this.getBoundingClientRect();
+        document.querySelector(".link_body").style.display = "block";
+        document.querySelector(".link_body .txt").textContent = textcont;
+        document.querySelector(".link_body .txt").style.fontSize = fontS;
+        document.querySelector(".link_body .txt").style.top = `${btnEl.top}px`;
+        document.querySelector(".link_body .txt").style.left = `${btnEl.left}px`;
+
+        setTimeout(() => {
+            document.querySelector(".link_body .txt").style.top = `20px`;
+            document.querySelector(".link_body .txt").style.left = `20px`;
+            setTimeout(() => {
+                window.location = `${linkdata}.html`
+            }, 1000)
+        }, 1000)
+    })
+})
+// 커리어 카드 마우스가 올리면 움직임
+
+document.querySelectorAll(".card_inner").forEach((inner) => {
+    inner.addEventListener("mousemove", (e) => {
+        const rect = inner.getBoundingClientRect();
+        const x = (e.clientX - rect.left) / rect.width - 0.8;
+        const y = (e.clientY - rect.top) / rect.height - 0.8;
+
+        gsap.to(inner, {
+            rotationY: x * 15,
+            rotationX: -y * 15,
+            duration: 0.3
+        })
+    })
+    inner.addEventListener("mouselave", () => {
+        gsap.to(inner, {
+            rotationX: 0,
+            rotationY: 0,
+            duration: 0.5
+        })
+    })
+})
+
+function mouseevent(worksReady) {
+    const link = {
+        0: "index.html",
+        1: "https://beahayoung.github.io/BHY.UI",
+        2: "https://www.metarock.co.kr/"
+    }
+    const cardel = document.querySelectorAll(".project_card");
+    cardel.forEach((c) => {
+        c.addEventListener("mouseenter", function () {
+            if (!worksReady) return;
+
+            document.querySelector(".cursor").classList.add("on");
+            document.querySelector(".read_more_btn").classList.add("on")
+        })
+        c.addEventListener("mouseleave", function () {
+            document.querySelector(".cursor").classList.remove("on");
+            document.querySelector(".read_more_btn").classList.remove("on")
+        })
+    })
+    document.addEventListener("mousemove", (e) => {
+        const readreat = document.querySelector(".read_more_btn").getBoundingClientRect();
+        const readH = readreat.height / 2;
+        const readw = readreat.width / 2;
+        document.querySelector(".read_more_btn").style.left = e.clientX - readw + "px";
+        document.querySelector(".read_more_btn").style.top = e.clientY - readH + "px";
+    })
+    document.querySelectorAll(".project_trach li").forEach((li, i) => {
+        li.addEventListener("click", function () {
+            window.location.href = link[i];
+        })
+    })
+}
