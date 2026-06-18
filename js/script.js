@@ -5,14 +5,19 @@ if ('scrollRestoration' in history) {
 window.scrollTo(0, 0);
 // HTML파싱되고 이벤트 시작
 window.addEventListener("DOMContentLoaded", function () {
+    const data = new Date().getFullYear();
     const dotWrap = document.querySelector('.works_dot');
     const cardes = document.querySelectorAll(".project_card")
+    document.querySelector("footer .year span").textContent = data
     document.querySelectorAll(".project_card").forEach((card, i) => {
         const li = document.createElement("li");
         if (i === 0) li.classList.add("on");
         li.setAttribute("data-index", i);
         dotWrap.appendChild(li);
         document.querySelector(".project_trach").style.width = (cardes.length * 100) + "vw"
+    })
+    document.querySelectorAll(".footer_title_wrap span").forEach(forr => {
+        textsclice(forr)
     })
     gsap.ticker.lagSmoothing(0);
     document.querySelector("html").style.overflow = "hidden";
@@ -422,7 +427,7 @@ window.addEventListener("DOMContentLoaded", function () {
                                 gsap.timeline({
                                         scrollTrigger: {
                                             trigger: '.section4',
-                                            start: 'top 70%',
+                                            start: 'top 50%',
                                             end: 'bottom 30%',
                                             toggleActions: "play none none reverse", // ★
                                             // play(들어올때) none none reverse(나갈때 되감기)
@@ -446,9 +451,8 @@ window.addEventListener("DOMContentLoaded", function () {
                                 gsap.set(".circle_wrap .circle", {
                                     scale: 0
                                 });
-                                gsap.set(".section5 p", {
+                                gsap.set(".section5 p, .section5 a", {
                                     opacity: 0,
-                                    x: 40
                                 });
                                 gsap.set("footer", {
                                     yPercent: 100
@@ -467,32 +471,33 @@ window.addEventListener("DOMContentLoaded", function () {
                                             onLeaveBack: () => gsap.set(".circle_wrap", {
                                                 opacity: 0
                                             }),
+        
                                         }
                                     })
                                     // 1단계 — 동그라미 채우기
                                     .to(".circle_wrap .circle", {
-                                        scale: 30,
+                                        scale: 100,
                                         ease: 'none',
                                         duration: 1,
                                         onStart: () => console.log("circle 시작!")
                                     })
+                                    .to(".section5 p, .section5 a", {
+                                        opacity: 1,
+                                        stagger: 0.1,
+                                        duration: 0.5
+                                    }, ">")
                                     .to(".section5 .contact_wrap", {
                                         yPercent: -100,
                                         duration: 2
-                                    }, ">0.5")
+                                    }, "<")
                                     // 2단계 — contact 등장
-                                    .to(".section5 p", {
-                                        opacity: 1,
-                                        x: 0,
-                                        stagger: 0.1,
-                                        duration: 1
-                                    }, ">-0.2")
                                     // 3단계 — footer 올라옴
                                     .to("footer", {
                                         yPercent: 0, // 아래 → 제자리 (올라옴)
                                         ease: 'none',
-                                        duration: 1.5
-                                    }, ">0.5")
+                                        duration: 1
+                                    }, ">")
+
 
 
 
@@ -937,3 +942,45 @@ document.querySelectorAll(".skills_item").forEach((tag) => {
         })
     })
 })
+
+// 이메일 js
+emailjs.init("4TXlaQlMYxjWaeWk7"); 
+document.querySelector("#contactform").addEventListener("submit", function (e) {
+    e.preventDefault();
+    emailjs.sendForm(
+        "service_yaak91g",     // ★ Service ID
+        "template_its5214",    // ★ Template ID
+        this
+    )
+    .then(() => {
+        alert("메시지가 전송되었습니다!");
+        this.reset();
+    })
+    .catch((err) => {
+        alert("전송 실패. 다시 시도해주세요.");
+        console.log(err);
+    });
+});
+document.querySelector("#contactform").addEventListener("input", function (e) {
+    e.preventDefault();
+    const target = e.target;
+    const valueLen = target.value.length;
+
+    if(target.name == "user_name") {
+        target.nextElementSibling.classList.toggle("on", valueLen > 4)
+    } else if(target.name == "user_email") {
+        const emailregex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        target.nextElementSibling.classList.toggle("on", !emailregex.test(e.target.value))
+    }
+
+    const name = document.querySelector("#name")
+    const email = document.querySelector("#email")
+    const mase = document.querySelector("#mase")
+
+    const alertset = name.value.trim() !== "" && email.value.trim() !== ""  && mase.value.trim() !== "";
+    console.log(alertset)
+    if(alertset) {
+        console.log(alertset)
+        document.querySelector(".send_btn").disabled = !alertset;
+    }
+});

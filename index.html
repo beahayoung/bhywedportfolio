@@ -10,7 +10,7 @@
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.15/dist/ScrollTrigger.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/TextPlugin.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/SplitText.min.js"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.9/dist/lenis.min.js"></script>
 
 
@@ -440,23 +440,29 @@
                         <span>GET IN TOUCH</span>
                         <h2 class="contact_title">CONTACT</h2>
                         <p>새로운 기회를 찾고 있습니다.<br/>함께 멋진것을 만들고 싶어요.</p>
-                        <p>bhy5635@gmail.com</p>
+                        <div class="mail_wrap">
+                            <a class="mail" href="mailto:bhy5635@gmail.com">bhy5635@gmail.com</a>
+                            <a class="mail" href="https://github.com/beahayoung" target="_blank">https://github.com/beahayoung</a>
+                        </div>
                     </div>
                     <div class="cont_right">
-                        <form id="contact">
+                        <form id="contactform">
                             <div class="name_wrap">
-                                <lable for="name">이름</lable>
-                                <input type="text" id="name" placeholder="이름">
+                                <lable for="name" class="sr-only">이름</lable>
+                                <input type="text" id="name" placeholder="이름" name="user_name" required maxlength="4" class="mt">
+                                <span class="alert">4자 이상은 사용금지!</span>
                             </div>
                             <div class="name_wrap">
-                                <lable for="email">이메일</lable>
-                                <input type="text" id="email" placeholder="이름">
+                                <lable for="email" class="sr-only">이메일</lable>
+                                <input type="email" id="email" name="user_email" placeholder="이메일" required class="mt">
+                                <span class="alert">이메을 형식으로 사용해주세요!</span>
                             </div>
                             <div class="name_wrap">
-                                <lable for="mase">메시지</lable>
-                                <input type="text" id="mase" placeholder="메시지">
+                                <lable for="mase" class="sr-only">메시지</lable>
+                                <textarea name="message" placeholder="포트폴리오 관련해서 피드백 주셔도됩니다." class="mt" rows="3" id="mase" required></textarea>
                             </div>
-                            <button type="submit" class="send_btn">SEND →</button>
+                            <button type="submit" class="send_btn" disabled>SEND →</button>
+                            <span class="alert on">다 입력한다면 활성화 됩니다!</span>
                         </form>
                     </div>
                 </div>
@@ -468,11 +474,11 @@
         <footer>
            <div class="footer_wrap">
               <div class="left">
-                <div>bhy5635@gmail.com</div>
-                <div>@2026</div>
+                <a class="footer_email" href="mailto:bhy5635@gmail.com">bhy5635@gmail.com</a>
+                <div class="year">@<span></span></div>
               </div>
               <div class="center">
-                <div>GITHUB</div>
+                <a href="https://github.com/beahayoung" target="_blank">GITHUB</a>
               </div>
               <div class="right">
                 <div>ABOUT</div>
@@ -480,10 +486,10 @@
               </div>
            </div>
            <pre>
-
+            
            </pre>
-           <div class="footer_title">
-             <div>BHY PORTFOLIO</div>
+           <div class="footer_title_wrap">
+             <span>BHY</span> <span>PORTFOLIO</span>
            </div>
         </footer>
     </div>
