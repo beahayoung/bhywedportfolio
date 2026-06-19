@@ -4,7 +4,12 @@ if ('scrollRestoration' in history) {
 }
 window.scrollTo(0, 0);
 // HTML파싱되고 이벤트 시작
-
+ const link = {
+        0: "index.html",
+        1: "https://beahayoung.github.io/BHY.UI",
+        2: "https://www.metarock.co.kr/",
+        3: "https://beahayoung.github.io/paullbassettGrid/"
+    }
 window.addEventListener("DOMContentLoaded", function () {
     const data = new Date().getFullYear();
     const dotWrap = document.querySelector('.works_dot');
@@ -15,7 +20,9 @@ window.addEventListener("DOMContentLoaded", function () {
         if (i === 0) li.classList.add("on");
         li.setAttribute("data-index", i);
         dotWrap.appendChild(li);
-        document.querySelector(".project_trach").style.width = (cardes.length * 100) + "vw"
+        document.querySelector(".project_trach").style.width = (cardes.length * 100) + "vw";
+        
+        card.dataset.url = link[i]
     })
     document.querySelectorAll(".footer_title_wrap span").forEach(forr => {
         textsclice(forr)
@@ -66,7 +73,7 @@ window.addEventListener("DOMContentLoaded", function () {
                         const title_p = document.querySelector(".scroll-wrap .title_wrap").getBoundingClientRect();
                         const headerel = document.querySelector("header").offsetHeight;
                         const widowhE = window.innerHeight - headerel;
-                        const t = widowhE - title_p.bottom - title_p.height - error
+                        const t = widowhE - title_p.bottom - error
 
 
 
@@ -637,14 +644,13 @@ function fontresize(el) {
     el.style.fontSize = "100px";
     el.style.letterSpacing = "0";
 
-    const elparentWindth = el.offsetWidth;
-    const inner = window.innerWidth - 60;
-    const fontsize = inner / elparentWindth;
-    const newvw = (100 * fontsize).toFixed(2);
-
-    setTimeout(() => {
-        el.style.fontSize = Math.trunc((parseFloat(newvw) / window.innerWidth * 100).toFixed(2)) + "vw";
-    }, 100)
+    setTimeout(()=> {
+      const elparentWindth = el.offsetWidth;
+      const inner = window.innerWidth - 60;
+      const fontsize = inner / elparentWindth;
+      const newvw = (100 * fontsize).toFixed(2);
+      el.style.fontSize = Math.trunc((parseFloat(newvw) / window.innerWidth * 100).toFixed(2)) + "vw";
+  },100)
 
 }
 // 파티클
@@ -888,11 +894,6 @@ document.querySelectorAll(".card_inner").forEach((inner) => {
 })
 
 function mouseevent(worksReady) {
-    const link = {
-        0: "index.html",
-        1: "https://beahayoung.github.io/BHY.UI",
-        2: "https://www.metarock.co.kr/"
-    }
     const cardel = document.querySelectorAll(".section3");
     cardel.forEach((c) => {
      
@@ -908,8 +909,9 @@ function mouseevent(worksReady) {
     })
     document.addEventListener("mousemove", readMore)
     document.querySelectorAll(".project_trach li").forEach((li, i) => {
+        const dataurl = li.dataset.url;
         li.addEventListener("click", function () {
-            window.location.href = link[i];
+            window.location.href = dataurl;
         })
     })
 }

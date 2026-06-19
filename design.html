@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile.ha-young</title>
+    <link rel="stylesheet" href="./css/font.css">
+    <link rel="stylesheet" href="./css/reset.css">
+    <style>
+        :root {
+    --main-color: #f87b1b;
+    --sub-color: #eee;
+    --black: #000;
+
+    --font-text: "Shouting", sans-serif;
+    --font-kr: "Noto Sans KR", sans-serif;
+    --font-en: "Oswald", sans-serif;
+    --font-code: "DepartureMono", sans-serif;
+
+    --basic: 1rem;
+}
+body {
+            background: var(--main-color);
+            padding: 20px;
+        }
+        * {
+            margin: 0;
+            padding: 0px;
+            box-sizing: border-box;
+        }
+        .page_tit {
+            font-size: 4rem;
+            font-family: var(--font-en);
+            position: absolute;
+            left: 20px;
+            top: 20px;
+        }
+        .back_btn {
+            font-family: var(--font-en);
+            font-size: 2rem;
+            border: 0px;
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            background: transparent;
+            color: var(--black);
+            cursor: pointer;
+        }
+        .e_mail {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            overflow: hidden;
+            display: flex;
+                height: 18px;
+        }
+        .e_mail:hover span.char::before{
+            transform: translateY(0%);
+            opacity: 1;
+        }
+        .e_mail:hover span.char::after{
+            transform: translateY(-110%);
+        }
+        .char {
+        }
+        span {
+            display: inline-block;
+            position: relative;
+            pointer-events: none;
+            color: transparent;
+            font-family: var(--font-en);
+        }
+        span.char::after,
+        span.char::before {
+                content: attr(data-char);
+                position: absolute;
+                
+                color: var(--sub-color);
+                opacity: 0.6;
+                transition: transform 0.35s;
+                top: 0px;
+                left: 0px;
+                transition-delay: calc(30ms * var(--char-index));
+        }
+        span.char::before {
+             transform: translateY(110%);
+        }
+
+    </style>
+</head>
+<body>
+   
+  <div class="page_tit">Info</div>
+  <a href="index.html" class="back_btn">BACK</a>
+  <div class="peoflie_wrap">
+    <div class="left_wrap"></div>
+    <div class="right_wrap"></div>
+  </div>
+  <div class="e_mail">bhy5635@gmail.com</div>
+  <script>
+    textsclice(document.querySelector(".e_mail"))
+    function textsclice(el) {
+    let textslice = el.textContent.split("").map((c, i) =>
+        c === " " ?
+        "" : `<span style="--char-index:${i}" data-char="${c}" class="char">${c}</span>`
+    ).join("");
+    el.innerHTML = textslice;
+}
+  </script>
+</body>
+</html>

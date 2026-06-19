@@ -294,6 +294,7 @@ body::before {
 #wrap main .scroll-wrap .title .tit {
   display: flex;
   align-items: center;
+  font-size: 17vw;
 }
 #wrap main .scroll-wrap .title:last-child {
   color: var(--sub-color);
@@ -1122,7 +1123,7 @@ footer {
   width: 100vw;
   height: 100vh;
   background: var(--black);
-  z-index: 9999899;
+  z-index: 99999999;
   overflow: hidden;
 }
 footer.on .footer_wrap div div span, footer.on .footer_wrap div a span {

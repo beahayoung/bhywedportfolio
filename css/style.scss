@@ -310,6 +310,7 @@ body {
                 .tit {
                     display: flex;
                     align-items: center;
+                    font-size: 17vw;
                 }
                 &:last-child {
                     color: var(--sub-color);
@@ -1147,7 +1148,7 @@ footer {
     width: 100vw;
     height: 100vh;
     background: var(--black);
-        z-index: 9999899;
+      z-index: 99999999;
     overflow: hidden;
     &.on {
         .footer_wrap {
