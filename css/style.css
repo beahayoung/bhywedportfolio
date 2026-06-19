@@ -46,7 +46,7 @@ body::before {
   will-change: transform; /* 브라우저 최적화 힌트 */
   mix-blend-mode: difference;
   height: 300px;
-  z-index: 99999;
+  z-index: 99999999999999;
 }
 .cursor.on {
   display: none;
@@ -1122,8 +1122,28 @@ footer {
   width: 100vw;
   height: 100vh;
   background: var(--black);
-  z-index: 9999999999;
+  z-index: 9999899;
   overflow: hidden;
+}
+footer.on .footer_wrap div div span, footer.on .footer_wrap div a span {
+  clip-path: inset(0 0% 0 0);
+  transition: 0.5s;
+  transition-delay: calc(20ms * var(--char-index));
+}
+footer.on pre {
+  transition: 0.5s;
+  transform: translateY(-50%) translateX(0%);
+}
+footer pre {
+  font-family: monospace;
+  white-space: pre;
+  line-height: 1;
+  font-size: 1rem;
+  color: var(--stork-color);
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%) translateX(-100%);
 }
 footer .footer_wrap {
   display: flex;
@@ -1143,7 +1163,7 @@ footer .footer_title_wrap {
   display: flex;
   justify-content: space-between;
   position: absolute;
-  bottom: 10px;
+  bottom: 74px;
   overflow: hidden;
 }
 footer .footer_title_wrap > span {
@@ -1151,9 +1171,40 @@ footer .footer_title_wrap > span {
   display: flex;
 }
 footer .footer_title_wrap > span span {
-  transform: translateY(100%);
-  transition-delay: calc(30ms * var(--char-index));
   display: inline-block;
+}
+footer .footer_wrap.on div div span, footer .footer_wrap.on div a span {
+  clip-path: inset(0 0% 0 0);
+  transition: 0.35s;
+  transition-delay: calc(20ms * var(--char-index));
+}
+footer .footer_wrap div div span, footer .footer_wrap div a span {
+  clip-path: inset(0 100% 0 0);
+  position: relative;
+  display: inline-block;
+  color: transparent;
+  pointer-events: none;
+  overflow: hidden;
+}
+footer .footer_wrap div div span::after, footer .footer_wrap div div span::before, footer .footer_wrap div a span::after, footer .footer_wrap div a span::before {
+  content: attr(data-char);
+  position: absolute;
+  color: var(--sub-color);
+  opacity: 0.6;
+  transition: transform 0.35s;
+  top: 0px;
+  left: 0px;
+  transition-delay: calc(20ms * var(--char-index));
+}
+footer .footer_wrap div div span::before, footer .footer_wrap div a span::before {
+  transform: translateY(100%);
+}
+footer .footer_wrap div div:hover span::before, footer .footer_wrap div a:hover span::before {
+  transform: translateY(0%);
+  opacity: 1;
+}
+footer .footer_wrap div div:hover span::after, footer .footer_wrap div a:hover span::after {
+  transform: translateY(-100%);
 }
 
 @keyframes spin {

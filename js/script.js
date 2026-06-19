@@ -4,6 +4,7 @@ if ('scrollRestoration' in history) {
 }
 window.scrollTo(0, 0);
 // HTML파싱되고 이벤트 시작
+
 window.addEventListener("DOMContentLoaded", function () {
     const data = new Date().getFullYear();
     const dotWrap = document.querySelector('.works_dot');
@@ -19,6 +20,13 @@ window.addEventListener("DOMContentLoaded", function () {
     document.querySelectorAll(".footer_title_wrap span").forEach(forr => {
         textsclice(forr)
     })
+    document.querySelectorAll(".footer_wrap div>div").forEach(wrap => {
+        textsclice(wrap)
+    })
+    document.querySelectorAll(".footer_wrap a").forEach(a => {
+        textsclice(a)
+    })
+    asciiSplit(document.querySelector("footer pre"))
     gsap.ticker.lagSmoothing(0);
     document.querySelector("html").style.overflow = "hidden";
     let worksSt;
@@ -402,7 +410,7 @@ window.addEventListener("DOMContentLoaded", function () {
                                     dotli.addEventListener("click", function () {
                                         if (!lenis) return;
                                         const st = ScrollTrigger.getById("worksScroll");
-                                        console.log("start:", st.start);
+                                        
 
                                         if (!st) return;
 
@@ -471,7 +479,7 @@ window.addEventListener("DOMContentLoaded", function () {
                                             onLeaveBack: () => gsap.set(".circle_wrap", {
                                                 opacity: 0
                                             }),
-        
+
                                         }
                                     })
                                     // 1단계 — 동그라미 채우기
@@ -479,7 +487,7 @@ window.addEventListener("DOMContentLoaded", function () {
                                         scale: 100,
                                         ease: 'none',
                                         duration: 1,
-                                        onStart: () => console.log("circle 시작!")
+                                        
                                     })
                                     .to(".section5 p, .section5 a", {
                                         opacity: 1,
@@ -495,10 +503,26 @@ window.addEventListener("DOMContentLoaded", function () {
                                     .to("footer", {
                                         yPercent: 0, // 아래 → 제자리 (올라옴)
                                         ease: 'none',
-                                        duration: 1
+                                        duration: 1,
                                     }, ">")
+                                gsap.from(".footer_title_wrap span span", {
+                                    yPercent: 100,
+                                    stagger: 0.3,
+                                    ease: "power3.out",
+                                    duration: 0.6,
+                                    scrollTrigger: {
+                                        trigger: 'footer',
+                                        start: 'top 30%',
+                                        toggleActions: "play none none reverse",
 
-
+                                    }
+                                });
+                                ScrollTrigger.create({
+                                    trigger: 'footer',
+                                    start: 'top 20%',
+                                    onEnter: () => document.querySelector('footer').classList.add('on'),
+                                    onLeaveBack: () => document.querySelector('footer').classList.remove('on'),
+                                });
 
 
 
@@ -871,7 +895,7 @@ function mouseevent(worksReady) {
     }
     const cardel = document.querySelectorAll(".section3");
     cardel.forEach((c) => {
-        console.log(c)
+     
         c.addEventListener("mouseenter", function () {
             document.querySelector(".cursor").classList.add("on");
             document.querySelector(".read_more_btn").classList.add("on")
@@ -907,14 +931,14 @@ function disableScroll() {
     window.addEventListener("scroll", preventDefault, {
         passive: false
     })
-    console.log("ddd")
+
 }
 
 function endbleScroll() {
     window.removeEventListener("wheel", preventDefault)
     window.removeEventListener("touchmove", preventDefault)
     window.removeEventListener("scroll", preventDefault)
-    console.log("dd")
+
 }
 
 function preventDefault(e) {
@@ -944,31 +968,31 @@ document.querySelectorAll(".skills_item").forEach((tag) => {
 })
 
 // 이메일 js
-emailjs.init("4TXlaQlMYxjWaeWk7"); 
+emailjs.init("4TXlaQlMYxjWaeWk7");
 document.querySelector("#contactform").addEventListener("submit", function (e) {
     e.preventDefault();
     emailjs.sendForm(
-        "service_yaak91g",     // ★ Service ID
-        "template_its5214",    // ★ Template ID
-        this
-    )
-    .then(() => {
-        alert("메시지가 전송되었습니다!");
-        this.reset();
-    })
-    .catch((err) => {
-        alert("전송 실패. 다시 시도해주세요.");
-        console.log(err);
-    });
+            "service_yaak91g", // ★ Service ID
+            "template_its5214", // ★ Template ID
+            this
+        )
+        .then(() => {
+            alert("메시지가 전송되었습니다!");
+            this.reset();
+        })
+        .catch((err) => {
+            alert("전송 실패. 다시 시도해주세요.");
+      
+        });
 });
 document.querySelector("#contactform").addEventListener("input", function (e) {
     e.preventDefault();
     const target = e.target;
     const valueLen = target.value.length;
 
-    if(target.name == "user_name") {
+    if (target.name == "user_name") {
         target.nextElementSibling.classList.toggle("on", valueLen > 4)
-    } else if(target.name == "user_email") {
+    } else if (target.name == "user_email") {
         const emailregex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         target.nextElementSibling.classList.toggle("on", !emailregex.test(e.target.value))
     }
@@ -977,10 +1001,57 @@ document.querySelector("#contactform").addEventListener("input", function (e) {
     const email = document.querySelector("#email")
     const mase = document.querySelector("#mase")
 
-    const alertset = name.value.trim() !== "" && email.value.trim() !== ""  && mase.value.trim() !== "";
-    console.log(alertset)
-    if(alertset) {
-        console.log(alertset)
+    const alertset = name.value.trim() !== "" && email.value.trim() !== "" && mase.value.trim() !== "";
+    if (alertset) {
         document.querySelector(".send_btn").disabled = !alertset;
     }
 });
+
+function asciiSplit(el) {
+    const text = el.textContent;
+    el.textContent = "";
+    for(let i =0; i<text.length; i++) {
+        const ch = text[i];
+        if(ch === "\n") {
+            el.appendChild(document.createTextNode("\n"));
+        } else if(ch === " ") {
+           el.appendChild(document.createTextNode(" ")); 
+        } else {
+            const span = document.createElement("span");
+            span.textContent = ch;
+            span.classList.add("ch")
+            el.appendChild(span);
+        }
+    }
+}
+
+const pre = document.querySelector(".ascll_wrap");
+
+
+pre.addEventListener("mousemove", (e)=> {
+    const ct = pre.getBoundingClientRect();
+    const cmx = e.clientX - ct.left;
+    const cmy = e.clientY - ct.top;
+const charse = document.querySelectorAll(".ascll_wrap span");
+charse.forEach(cha => {
+    const cr = cha.getBoundingClientRect();
+    const cx = cr.left - ct.left + cr.width / 2;
+    const cy = cr.top - ct.top + cr.height / 2;
+    
+    const dist = Math.sqrt((cmx-cx)**2 + (cmy-cy)**2);
+    if(dist < 60) {
+        cha.style.color = "#f87b1b";
+        cha.style.color = "1";
+    } else {
+        cha.style.color = '';
+        cha.style.opacity = '';
+    }
+})
+})
+pre.addEventListener("mouseleave", function () {
+    const charse = document.querySelectorAll(".ascll_wrap span");
+    charse.forEach(c => {
+        c.style.color = "";
+        c.style.opacity = ""
+    })
+})
