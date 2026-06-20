@@ -1160,6 +1160,12 @@ footer {
                        transition-delay: calc(20ms * var(--char-index));
                    }
                }
+               a {
+                display: block;
+               }
+           }
+           .right {
+            text-align: right;
            }
         }
         pre {

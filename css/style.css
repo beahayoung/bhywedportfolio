@@ -1131,6 +1131,12 @@ footer.on .footer_wrap div div span, footer.on .footer_wrap div a span {
   transition: 0.5s;
   transition-delay: calc(20ms * var(--char-index));
 }
+footer.on .footer_wrap div a {
+  display: block;
+}
+footer.on .footer_wrap .right {
+  text-align: right;
+}
 footer.on pre {
   transition: 0.5s;
   transform: translateY(-50%) translateX(0%);
