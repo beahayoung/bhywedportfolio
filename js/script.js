@@ -4,24 +4,25 @@ if ('scrollRestoration' in history) {
 }
 window.scrollTo(0, 0);
 // HTML파싱되고 이벤트 시작
- const link = {
-        0: "index.html",
-        1: "https://beahayoung.github.io/BHY.UI",
-        2: "https://www.metarock.co.kr/",
-        3: "https://beahayoung.github.io/paullbassettGrid/"
-    }
+const link = {
+    0: "index.html",
+    1: "https://beahayoung.github.io/BHY.UI",
+    2: "https://www.metarock.co.kr/",
+    3: "https://beahayoung.github.io/paullbassettGrid/"
+}
 window.addEventListener("DOMContentLoaded", function () {
     const data = new Date().getFullYear();
     const dotWrap = document.querySelector('.works_dot');
     const cardes = document.querySelectorAll(".project_card")
-    document.querySelector("footer .year span").textContent = data
+    document.querySelector("footer .year span").textContent = data;
+    document.querySelector(".section2").classList.add("on")
     document.querySelectorAll(".project_card").forEach((card, i) => {
         const li = document.createElement("li");
         if (i === 0) li.classList.add("on");
         li.setAttribute("data-index", i);
         dotWrap.appendChild(li);
         document.querySelector(".project_trach").style.width = (cardes.length * 100) + "vw";
-        
+
         card.dataset.url = link[i]
     })
     document.querySelectorAll(".footer_title_wrap span").forEach(forr => {
@@ -36,6 +37,7 @@ window.addEventListener("DOMContentLoaded", function () {
     asciiSplit(document.querySelector("footer pre"))
     gsap.ticker.lagSmoothing(0);
     document.querySelector("html").style.overflow = "hidden";
+
     let worksSt;
     disableScroll()
     const texts = document.querySelector(".loding .text");
@@ -62,6 +64,13 @@ window.addEventListener("DOMContentLoaded", function () {
                 ease: "power1.inOut",
                 onComplete: () => {
                     document.querySelector(".loding").classList.add("active");
+                    const isMobile = window.matchMedia("(max-width: 1023px)").matches;
+                    if(isMobile) {
+                        document.querySelector("html").style.overflow = "";
+                    } else {
+                        document.querySelector("html").style.overflow = "unset";
+                    }
+
                     setTimeout(() => {
                         document.querySelector(".loding").style.display = "none";
                         document.querySelector("#wrap").style.opacity = "1";
@@ -83,7 +92,7 @@ window.addEventListener("DOMContentLoaded", function () {
                             duration: 1,
                             ease: "power4",
                             onComplete: () => {
-
+                                document.querySelector(".section2").classList.remove("on")
                                 gsap.set('.scroll-wrap .pir', {
                                     height: 'auto'
                                 }); //초기값 셋팅
@@ -110,9 +119,15 @@ window.addEventListener("DOMContentLoaded", function () {
                                             scrub: 1,
                                             onUpdate: (self) => {
                                                 // console.log('progress:', self.progress); // ← 추가
-                                                if (self.progress > 0.4) {
+                                                if(self.progress <= 0) {
+                                                    gsap.set("#cutImage", {
+                                    opacity: 0,
 
-                                                    const cutProgress = (self.progress - 0.4) * 3;
+                                })
+                                                }
+                                                if (self.progress > 0.45) {
+
+                                                    const cutProgress = (self.progress - 0.45) * 3;
                                                     const index = Math.min(
                                                         Math.floor(cutProgress * imgTotal),
                                                         imgTotal - 1
@@ -347,9 +362,26 @@ window.addEventListener("DOMContentLoaded", function () {
                                             anticipatePin: 1, // ★ pin 부드럽게 (점프 줄임)
                                             onUpdate: (self) => {
                                                 worksReady = true;
-                                                mouseevent(worksReady)
-
-
+                                                const isMobile = window.matchMedia("(max-width: 1023px)").matches;
+                                                if(!isMobile) {
+                                                    mouseevent(worksReady)
+                                                } else {
+                                                    document.querySelector(".read_more_btn").classList.add("on");
+                                                }
+                                            },
+                                            onEnter:()=> {
+                                                const isMobile = window.matchMedia("(max-width: 1023px)").matches;
+                                                worksReady = true;
+                                                if(!isMobile) {
+                                                    mouseevent(worksReady)
+                                                }
+                                            },
+                                            onLeave:()=> {
+                                                worksReady = false;
+                                                document.querySelector(".read_more_btn").classList.remove("on");
+                                            },
+                                            onLeaveBack:()=> {
+                                                document.querySelector(".read_more_btn").classList.remove("on");
                                             },
                                             onRefresh: (self) => {
                                                 worksSt = self;
@@ -417,7 +449,7 @@ window.addEventListener("DOMContentLoaded", function () {
                                     dotli.addEventListener("click", function () {
                                         if (!lenis) return;
                                         const st = ScrollTrigger.getById("worksScroll");
-                                        
+
 
                                         if (!st) return;
 
@@ -470,7 +502,7 @@ window.addEventListener("DOMContentLoaded", function () {
                                     opacity: 0,
                                 });
                                 gsap.set("footer", {
-                                    yPercent: 100
+
                                 });
 
                                 gsap.timeline({
@@ -480,12 +512,18 @@ window.addEventListener("DOMContentLoaded", function () {
                                             end: '+=250%', // 길게 (3단계)
                                             scrub: 1,
                                             invalidateOnRefresh: true,
-                                            onEnter: () => gsap.set(".circle_wrap", {
-                                                opacity: 1
-                                            }),
-                                            onLeaveBack: () => gsap.set(".circle_wrap", {
-                                                opacity: 0
-                                            }),
+                                            onEnter: () => {
+                                                gsap.set(".circle_wrap", {
+                                                    opacity: 1
+                                                });
+                                                // document.querySelector("html").style.overflow = "unset";
+                                            },
+                                            onLeaveBack: () => {
+                                                gsap.set(".circle_wrap", {
+                                                    opacity: 0
+                                                });
+                                                // document.querySelector("html").style.overflow = "";
+                                            },
 
                                         }
                                     })
@@ -494,24 +532,21 @@ window.addEventListener("DOMContentLoaded", function () {
                                         scale: 100,
                                         ease: 'none',
                                         duration: 1,
-                                        
+
+
+
                                     })
                                     .to(".section5 p, .section5 a", {
                                         opacity: 1,
                                         stagger: 0.1,
-                                        duration: 0.5
+                                        duration: 0.5,
                                     }, ">")
                                     .to(".section5 .contact_wrap", {
                                         yPercent: -100,
-                                        duration: 2
+                                        duration: 2,
                                     }, "<")
-                                    // 2단계 — contact 등장
-                                    // 3단계 — footer 올라옴
-                                    .to("footer", {
-                                        yPercent: 0, // 아래 → 제자리 (올라옴)
-                                        ease: 'none',
-                                        duration: 1,
-                                    }, ">")
+                                // 2단계 — contact 등장
+                                // 3단계 — footer 올라옴
                                 gsap.from(".footer_title_wrap span span", {
                                     yPercent: 100,
                                     stagger: 0.3,
@@ -522,7 +557,8 @@ window.addEventListener("DOMContentLoaded", function () {
                                         start: 'top 30%',
                                         toggleActions: "play none none reverse",
 
-                                    }
+                                    },
+
                                 });
                                 ScrollTrigger.create({
                                     trigger: 'footer',
@@ -567,8 +603,8 @@ window.addEventListener("DOMContentLoaded", function () {
                             ease: "power2.out",
                             onComplete: () => {
                                 endbleScroll()
-                                document.body.style.overflowY = "auto";
-                                document.querySelector("html").style.overflow = "unset";
+                                // document.body.style.overflowY = "auto";
+                                // document.querySelector("html").style.overflow = "unset";
 
                                 ScrollTrigger.refresh();
                                 lenis = new Lenis({
@@ -625,9 +661,78 @@ window.addEventListener("load", function () {
 
         menu.innerHTML = text;
     })
+    // 모바일 감지
+    const isMobile = window.matchMedia("(max-width: 1023px)").matches;
+    if (isMobile) {
 
+    } else {
+        document.addEventListener("mousemove", function (e) {
+            const cursor = document.querySelector(".cursor");
+            const cursordata = cursor.getBoundingClientRect();
+            let cursorWidth = cursordata.width / 2;
+            let cursorHight = cursordata.height / 2;
+            let x = e.clientX - cursorWidth;
+            let y = e.clientY - cursorHight;
 
+            cursor.style.transform = `translate3d(${x}px, ${y}px, 0)`;
+        })
+        document.removeEventListener("mousemove", readMore)
+    }
+    
 })
+// 커리어 카드 마우스가 올리면 움직임
+
+document.querySelectorAll(".card_inner").forEach((inner) => {
+    inner.addEventListener("mousemove", (e) => {
+        const rect = inner.getBoundingClientRect();
+        const x = (e.clientX - rect.left) / rect.width - 0.8;
+        const y = (e.clientY - rect.top) / rect.height - 0.8;
+
+        gsap.to(inner, {
+            rotationY: x * 15,
+            rotationX: -y * 15,
+            duration: 0.3
+        })
+    })
+    inner.addEventListener("mouselave", () => {
+        gsap.to(inner, {
+            rotationX: 0,
+            rotationY: 0,
+            duration: 0.5
+        })
+    })
+})
+
+
+// 섹션3의 마우스 무브이벤트
+function readMore(e) {
+    const readreat = document.querySelector(".read_more_btn").getBoundingClientRect();
+    const readH = readreat.height / 2;
+    const readw = readreat.width / 2;
+    document.querySelector(".read_more_btn").style.transform = `translate3d(${e.clientX - readw}px, ${e.clientY - readH}px, 0)`;
+}
+  function mouseevent(worksReady) {
+            const cardel = document.querySelectorAll(".section3");
+            cardel.forEach((c) => {
+
+                c.addEventListener("mouseenter", function () {
+                    document.querySelector(".cursor").classList.add("on");
+                    document.querySelector(".read_more_btn").classList.add("on")
+                })
+                c.addEventListener("mouseleave", function () {
+                    document.querySelector(".cursor").classList.remove("on");
+                    document.querySelector(".read_more_btn").classList.remove("on")
+                    document.removeEventListener("mousemove", readMore)
+                })
+            })
+            document.addEventListener("mousemove", readMore)
+            document.querySelectorAll(".project_trach li").forEach((li, i) => {
+                const dataurl = li.dataset.url;
+                li.addEventListener("click", function () {
+                    window.location.href = dataurl;
+                })
+            })
+}
 // 글자 자르는 js
 function textsclice(el) {
     let textslice = el.textContent.split("").map((c, i) =>
@@ -644,13 +749,13 @@ function fontresize(el) {
     el.style.fontSize = "100px";
     el.style.letterSpacing = "0";
 
-    setTimeout(()=> {
-      const elparentWindth = el.offsetWidth;
-      const inner = window.innerWidth - 60;
-      const fontsize = inner / elparentWindth;
-      const newvw = (100 * fontsize).toFixed(2);
-      el.style.fontSize = Math.trunc((parseFloat(newvw) / window.innerWidth * 100).toFixed(2)) + "vw";
-  },100)
+    setTimeout(() => {
+        const elparentWindth = el.offsetWidth;
+        const inner = window.innerWidth - 60;
+        const fontsize = inner / elparentWindth;
+        const newvw = (100 * fontsize).toFixed(2);
+        el.style.fontSize = Math.trunc((parseFloat(newvw) / window.innerWidth * 100).toFixed(2)) + "vw";
+    }, 100)
 
 }
 // 파티클
@@ -742,16 +847,6 @@ function animParticles() {
 }
 animParticles();
 
-document.addEventListener("mousemove", function (e) {
-    const cursor = document.querySelector(".cursor");
-    const cursordata = cursor.getBoundingClientRect();
-    let cursorWidth = cursordata.width / 2;
-    let cursorHight = cursordata.height / 2;
-    let x = e.clientX - cursorWidth;
-    let y = e.clientY - cursorHight;
-
-    cursor.style.transform = `translate3d(${x}px, ${y}px, 0)`;
-})
 
 let prevScrollTop = 0;
 document.addEventListener("scroll", function () {
@@ -870,58 +965,6 @@ document.querySelectorAll(".btn").forEach((btn) => {
         }, 1000)
     })
 })
-// 커리어 카드 마우스가 올리면 움직임
-
-document.querySelectorAll(".card_inner").forEach((inner) => {
-    inner.addEventListener("mousemove", (e) => {
-        const rect = inner.getBoundingClientRect();
-        const x = (e.clientX - rect.left) / rect.width - 0.8;
-        const y = (e.clientY - rect.top) / rect.height - 0.8;
-
-        gsap.to(inner, {
-            rotationY: x * 15,
-            rotationX: -y * 15,
-            duration: 0.3
-        })
-    })
-    inner.addEventListener("mouselave", () => {
-        gsap.to(inner, {
-            rotationX: 0,
-            rotationY: 0,
-            duration: 0.5
-        })
-    })
-})
-
-function mouseevent(worksReady) {
-    const cardel = document.querySelectorAll(".section3");
-    cardel.forEach((c) => {
-     
-        c.addEventListener("mouseenter", function () {
-            document.querySelector(".cursor").classList.add("on");
-            document.querySelector(".read_more_btn").classList.add("on")
-        })
-        c.addEventListener("mouseleave", function () {
-            document.querySelector(".cursor").classList.remove("on");
-            document.querySelector(".read_more_btn").classList.remove("on")
-            document.removeEventListener("mousemove", readMore)
-        })
-    })
-    document.addEventListener("mousemove", readMore)
-    document.querySelectorAll(".project_trach li").forEach((li, i) => {
-        const dataurl = li.dataset.url;
-        li.addEventListener("click", function () {
-            window.location.href = dataurl;
-        })
-    })
-}
-// 섹션3의 마우스 무브이벤트
-function readMore(e) {
-    const readreat = document.querySelector(".read_more_btn").getBoundingClientRect();
-    const readH = readreat.height / 2;
-    const readw = readreat.width / 2;
-    document.querySelector(".read_more_btn").style.transform = `translate3d(${e.clientX - readw}px, ${e.clientY - readH}px, 0)`;
-}
 // 스크롤막기
 function disableScroll() {
     window.addEventListener("wheel", preventDefault, {
@@ -984,7 +1027,7 @@ document.querySelector("#contactform").addEventListener("submit", function (e) {
         })
         .catch((err) => {
             alert("전송 실패. 다시 시도해주세요.");
-      
+
         });
 });
 document.querySelector("#contactform").addEventListener("input", function (e) {
@@ -1012,12 +1055,12 @@ document.querySelector("#contactform").addEventListener("input", function (e) {
 function asciiSplit(el) {
     const text = el.textContent;
     el.textContent = "";
-    for(let i =0; i<text.length; i++) {
+    for (let i = 0; i < text.length; i++) {
         const ch = text[i];
-        if(ch === "\n") {
+        if (ch === "\n") {
             el.appendChild(document.createTextNode("\n"));
-        } else if(ch === " ") {
-           el.appendChild(document.createTextNode(" ")); 
+        } else if (ch === " ") {
+            el.appendChild(document.createTextNode(" "));
         } else {
             const span = document.createElement("span");
             span.textContent = ch;
@@ -1030,25 +1073,25 @@ function asciiSplit(el) {
 const pre = document.querySelector(".ascll_wrap");
 
 
-pre.addEventListener("mousemove", (e)=> {
+pre.addEventListener("mousemove", (e) => {
     const ct = pre.getBoundingClientRect();
     const cmx = e.clientX - ct.left;
     const cmy = e.clientY - ct.top;
-const charse = document.querySelectorAll(".ascll_wrap span");
-charse.forEach(cha => {
-    const cr = cha.getBoundingClientRect();
-    const cx = cr.left - ct.left + cr.width / 2;
-    const cy = cr.top - ct.top + cr.height / 2;
-    
-    const dist = Math.sqrt((cmx-cx)**2 + (cmy-cy)**2);
-    if(dist < 60) {
-        cha.style.color = "#f87b1b";
-        cha.style.color = "1";
-    } else {
-        cha.style.color = '';
-        cha.style.opacity = '';
-    }
-})
+    const charse = document.querySelectorAll(".ascll_wrap span");
+    charse.forEach(cha => {
+        const cr = cha.getBoundingClientRect();
+        const cx = cr.left - ct.left + cr.width / 2;
+        const cy = cr.top - ct.top + cr.height / 2;
+
+        const dist = Math.sqrt((cmx - cx) ** 2 + (cmy - cy) ** 2);
+        if (dist < 60) {
+            cha.style.color = "#f87b1b";
+            cha.style.color = "1";
+        } else {
+            cha.style.color = '';
+            cha.style.opacity = '';
+        }
+    })
 })
 pre.addEventListener("mouseleave", function () {
     const charse = document.querySelectorAll(".ascll_wrap span");

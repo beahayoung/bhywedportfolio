@@ -1,0 +1,68 @@
+@media (max-width: 767px) {
+  #wrap header .line {
+    height: 1px;
+  }
+  #wrap header .logo {
+    display: none;
+  }
+  #wrap header .list .sns {
+    width: 100% !important;
+  }
+}
+@media (max-width: 1023px) {
+  .cursor {
+    display: none;
+  }
+  #wrap header .list .menu_list {
+    display: none;
+  }
+  #wrap header .list .sns {
+    width: auto;
+  }
+  #wrap main .scroll-wrap .title {
+    -webkit-text-stroke: 1px var(--sub-color);
+  }
+  #wrap main .scroll-wrap .pir {
+    top: 2%;
+    font-size: 3vw;
+  }
+  #wrap main .scroll-wrap .sub_title {
+    font-size: 5vw;
+  }
+  #wrap main .section2 .text_box_wrap {
+    flex-wrap: wrap;
+    justify-content: flex-end;
+  }
+  #wrap main .section2 .text_box_wrap .text_mask_wrap {
+    width: 100%;
+  }
+  #wrap main .section2 .text_box_wrap .text_mask_wrap .mask {
+    text-align: left;
+  }
+  #wrap main .section2 .marquee {
+    font-size: 3rem;
+    margin-left: -15px;
+    padding: 25px 0px;
+  }
+  #wrap main .section3 .works_num {
+    top: 73px;
+    right: 16px;
+  }
+  #wrap main .section3 .project_card .project_info {
+    font-size: 3vw;
+    left: 4vh;
+    top: 69vh;
+  }
+  #wrap main .read_more_btn.on {
+    left: 50%;
+    top: 50%;
+  }
+  #wrap main .section5 .contact_wrap {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  #wrap main .section5 .contact_wrap > div {
+    flex: unset;
+    width: 100%;
+  }
+}/*# sourceMappingURL=responsive.css.map */
