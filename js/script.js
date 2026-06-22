@@ -108,6 +108,10 @@ window.addEventListener("DOMContentLoaded", function () {
                                     opacity: 0,
 
                                 })
+                                gsap.set(".scroll-wrap .sub_title", {
+                                    height:"36px"
+
+                                })
 
                                 ScrollTrigger.refresh();
                                 gsap.timeline({
