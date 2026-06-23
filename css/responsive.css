@@ -47,6 +47,9 @@
     margin-left: -15px;
     padding: 25px 0px;
   }
+  #wrap main .section2 .projects .inner .works_list .works_cont {
+    width: 100%;
+  }
   #wrap main .section3 .works_num {
     top: 73px;
     right: 16px;
@@ -66,10 +69,11 @@
   #wrap main .section5 .contact_wrap {
     flex-wrap: wrap;
     gap: 0;
+    height: 41% !important;
     justify-content: center;
   }
   #wrap main .section5 .contact_wrap > div {
-    flex: unset;
-    width: 100%;
+    flex: unset !important;
+    width: 100% !important;
   }
 }/*# sourceMappingURL=responsive.css.map */

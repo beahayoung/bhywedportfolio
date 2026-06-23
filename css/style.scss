@@ -399,7 +399,6 @@ body {
             }
         }
         .section2 {
-            padding-left: 6vw;
             z-index: 10002;
             overflow: unset;
             display: block; /* flex 해제 */
@@ -473,7 +472,7 @@ body {
             }
             .text_box_wrap {
                 min-height: 100vh;
-
+    padding-left: 6vw;
                 position: relative;
                 align-items: center;
                 display: flex;
@@ -601,7 +600,7 @@ body {
                 }
                 .inner {
                     box-sizing: border-box;
-                    margin-right: 15vw;
+                    padding: 0px 6vw;
                     color: var(--sub-color);
                     position: relative;
                     z-index: 22;
@@ -711,9 +710,12 @@ body {
                             margin-bottom: 8px;
                         }
                         .works_cont {
-                            font-size: 0.85rem;
-                            line-height: 1.7;
-                            color: rgba(245, 240, 235, 0.6);
+                               font-size: 0.85rem;
+    line-height: 1.7;
+    color: rgba(245, 240, 235, 0.6);
+    word-break: keep-all;
+    width: 46%;
+
                         }
                         .work_tit {
                             font-weight: bold;

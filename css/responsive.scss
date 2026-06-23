@@ -71,6 +71,15 @@
                 margin-left: -15px;
                     padding: 25px 0px;
       }
+      .projects{
+        .inner {
+          .works_list {
+            .works_cont {
+              width: 100%;
+            }
+          } 
+        } 
+      }
     }
     .section3  {
       .works_num {
@@ -98,10 +107,11 @@
       .contact_wrap {
         flex-wrap: wrap;
         gap: 0;
+        height: 41%!important;
         justify-content: center;
         &>div {
-          flex: unset;
-          width: 100%;
+          flex: unset!important;
+          width: 100%!important;
         }
       }
     }
