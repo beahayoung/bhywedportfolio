@@ -8,6 +8,9 @@
   #wrap header .list .sns {
     width: 100% !important;
   }
+  #wrap main .section3 .project_card .project_info {
+    left: 1vh !important;
+  }
 }
 @media (max-width: 1023px) {
   .cursor {
@@ -53,12 +56,16 @@
     left: 4vh;
     top: 69vh;
   }
+  #wrap main .section3 .project_card .project_info p {
+    font-size: 2.5vw;
+  }
   #wrap main .read_more_btn.on {
     left: 50%;
     top: 50%;
   }
   #wrap main .section5 .contact_wrap {
     flex-wrap: wrap;
+    gap: 0;
     justify-content: center;
   }
   #wrap main .section5 .contact_wrap > div {
