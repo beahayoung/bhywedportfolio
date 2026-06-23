@@ -70,11 +70,14 @@
   #wrap main .section5 .contact_wrap {
     flex-wrap: wrap;
     gap: 0;
-    height: 41% !important;
+    height: 60% !important;
     justify-content: center;
   }
   #wrap main .section5 .contact_wrap > div {
     flex: unset !important;
     width: 100% !important;
+  }
+  #wrap footer .ascll_wrap {
+    font-size: 1.2vw;
   }
 }/*# sourceMappingURL=responsive.css.map */

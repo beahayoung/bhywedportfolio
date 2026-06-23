@@ -65,7 +65,7 @@ window.addEventListener("DOMContentLoaded", function () {
                 onComplete: () => {
                     document.querySelector(".loding").classList.add("active");
                     const isMobile = window.matchMedia("(max-width: 1023px)").matches;
-                    if(isMobile) {
+                    if (isMobile) {
                         document.querySelector("html").style.overflow = "";
                     } else {
                         document.querySelector("html").style.overflow = "unset";
@@ -109,11 +109,12 @@ window.addEventListener("DOMContentLoaded", function () {
 
                                 })
                                 gsap.set(".scroll-wrap .sub_title", {
-                                    height:"36px"
+                                    height: "36px"
 
                                 })
 
                                 ScrollTrigger.refresh();
+                 
                                 gsap.timeline({
                                         scrollTrigger: {
                                             trigger: '.scroll-wrap',
@@ -123,11 +124,11 @@ window.addEventListener("DOMContentLoaded", function () {
                                             scrub: 1,
                                             onUpdate: (self) => {
                                                 // console.log('progress:', self.progress); // ← 추가
-                                                if(self.progress <= 0) {
+                                                if (self.progress <= 0) {
                                                     gsap.set("#cutImage", {
-                                    opacity: 0,
+                                                        opacity: 0,
 
-                                })
+                                                    })
                                                 }
                                                 if (self.progress > 0.45) {
 
@@ -151,7 +152,6 @@ window.addEventListener("DOMContentLoaded", function () {
 
                                         }
                                     })
-
                                     .to(".scroll-wrap .pir", {
                                         height: 0,
                                         ease: "none",
@@ -367,24 +367,24 @@ window.addEventListener("DOMContentLoaded", function () {
                                             onUpdate: (self) => {
                                                 worksReady = true;
                                                 const isMobile = window.matchMedia("(max-width: 1023px)").matches;
-                                                if(!isMobile) {
+                                                if (!isMobile) {
                                                     mouseevent(worksReady)
                                                 } else {
                                                     document.querySelector(".read_more_btn").classList.add("on");
                                                 }
                                             },
-                                            onEnter:()=> {
+                                            onEnter: () => {
                                                 const isMobile = window.matchMedia("(max-width: 1023px)").matches;
                                                 worksReady = true;
-                                                if(!isMobile) {
+                                                if (!isMobile) {
                                                     mouseevent(worksReady)
                                                 }
                                             },
-                                            onLeave:()=> {
+                                            onLeave: () => {
                                                 worksReady = false;
                                                 document.querySelector(".read_more_btn").classList.remove("on");
                                             },
-                                            onLeaveBack:()=> {
+                                            onLeaveBack: () => {
                                                 document.querySelector(".read_more_btn").classList.remove("on");
                                             },
                                             onRefresh: (self) => {
@@ -570,7 +570,9 @@ window.addEventListener("DOMContentLoaded", function () {
                                     onEnter: () => document.querySelector('footer').classList.add('on'),
                                     onLeaveBack: () => document.querySelector('footer').classList.remove('on'),
                                 });
+                                
 
+                              
 
 
 
@@ -682,7 +684,7 @@ window.addEventListener("load", function () {
         })
         document.removeEventListener("mousemove", readMore)
     }
-    
+
 })
 // 커리어 카드 마우스가 올리면 움직임
 
@@ -715,27 +717,28 @@ function readMore(e) {
     const readw = readreat.width / 2;
     document.querySelector(".read_more_btn").style.transform = `translate3d(${e.clientX - readw}px, ${e.clientY - readH}px, 0)`;
 }
-  function mouseevent(worksReady) {
-            const cardel = document.querySelectorAll(".section3");
-            cardel.forEach((c) => {
 
-                c.addEventListener("mouseenter", function () {
-                    document.querySelector(".cursor").classList.add("on");
-                    document.querySelector(".read_more_btn").classList.add("on")
-                })
-                c.addEventListener("mouseleave", function () {
-                    document.querySelector(".cursor").classList.remove("on");
-                    document.querySelector(".read_more_btn").classList.remove("on")
-                    document.removeEventListener("mousemove", readMore)
-                })
-            })
-            document.addEventListener("mousemove", readMore)
-            document.querySelectorAll(".project_trach li").forEach((li, i) => {
-                const dataurl = li.dataset.url;
-                li.addEventListener("click", function () {
-                    window.location.href = dataurl;
-                })
-            })
+function mouseevent(worksReady) {
+    const cardel = document.querySelectorAll(".section3");
+    cardel.forEach((c) => {
+
+        c.addEventListener("mouseenter", function () {
+            document.querySelector(".cursor").classList.add("on");
+            document.querySelector(".read_more_btn").classList.add("on")
+        })
+        c.addEventListener("mouseleave", function () {
+            document.querySelector(".cursor").classList.remove("on");
+            document.querySelector(".read_more_btn").classList.remove("on")
+            document.removeEventListener("mousemove", readMore)
+        })
+    })
+    document.addEventListener("mousemove", readMore)
+    document.querySelectorAll(".project_trach li").forEach((li, i) => {
+        const dataurl = li.dataset.url;
+        li.addEventListener("click", function () {
+            window.location.href = dataurl;
+        })
+    })
 }
 // 글자 자르는 js
 function textsclice(el) {

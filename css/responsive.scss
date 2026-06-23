@@ -108,13 +108,18 @@
       .contact_wrap {
         flex-wrap: wrap;
         gap: 0;
-        height: 41%!important;
+        height: 60%!important;
         justify-content: center;
         &>div {
           flex: unset!important;
           width: 100%!important;
         }
       }
+    }
+  }
+  footer {
+    .ascll_wrap {
+      font-size: 1.2vw;
     }
   }
  }

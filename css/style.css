@@ -21,14 +21,17 @@ html {
   width: 100%;
   max-width: 100vw;
   min-height: 100%;
+  scrollbar-width: none;
 }
 
 body {
   cursor: none;
+  width: 100%;
+  max-width: 100vw;
+  min-height: 100%;
+  overflow-x: clip;
   font-family: var(--font-kr);
   background: var(--black);
-  overflow-x: hidden;
-  overflow-y: hidden;
   color: var(--sub-color);
 }
 body::before {
