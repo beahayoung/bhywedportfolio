@@ -35,6 +35,7 @@
   #wrap main .section2 .text_box_wrap {
     flex-wrap: wrap;
     justify-content: flex-end;
+    padding-top: 30vh;
   }
   #wrap main .section2 .text_box_wrap .text_mask_wrap {
     width: 100%;

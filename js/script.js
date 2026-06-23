@@ -951,21 +951,24 @@ ScrollTrigger.create({
 document.querySelectorAll(".btn").forEach((btn) => {
     btn.addEventListener("click", function () {
         let linkdata = this.dataset.pageLink;
-        let textcont = this.textContent;
-        let fontS = window.getComputedStyle(this).fontSize;;
-        const btnEl = this.getBoundingClientRect();
-        document.querySelector(".link_body").style.display = "block";
-        document.querySelector(".link_body .txt").textContent = textcont;
-        document.querySelector(".link_body .txt").style.fontSize = fontS;
-        document.querySelector(".link_body .txt").style.top = `${btnEl.top}px`;
-        document.querySelector(".link_body .txt").style.left = `${btnEl.left}px`;
+        // let textcont = this.textContent;
+        // let fontS = window.getComputedStyle(this).fontSize;;
+        // const btnEl = this.getBoundingClientRect();
+        // document.querySelector(".link_body").style.display = "block";
+        // document.querySelector(".link_body .txt").textContent = textcont;
+        // document.querySelector(".link_body .txt").style.fontSize = fontS;
+        // document.querySelector(".link_body .txt").style.top = `${btnEl.top}px`;
+        // document.querySelector(".link_body .txt").style.left = `${btnEl.left}px`;
 
+        // setTimeout(() => {
+        //     document.querySelector(".link_body .txt").style.top = `20px`;
+        //     document.querySelector(".link_body .txt").style.left = `20px`;
+        //     setTimeout(() => {
+        //         window.location = `${linkdata}.html`
+        //     }, 1000)
+        // }, 1000)
         setTimeout(() => {
-            document.querySelector(".link_body .txt").style.top = `20px`;
-            document.querySelector(".link_body .txt").style.left = `20px`;
-            setTimeout(() => {
-                window.location = `${linkdata}.html`
-            }, 1000)
+            window.location = `${linkdata}.html`
         }, 1000)
     })
 })
