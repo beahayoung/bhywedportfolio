@@ -34,7 +34,7 @@ window.addEventListener("DOMContentLoaded", function () {
     document.querySelectorAll(".footer_wrap a").forEach(a => {
         textsclice(a)
     })
-    asciiSplit(document.querySelector("footer pre"))
+    // asciiSplit(document.querySelector("footer pre"))
     gsap.ticker.lagSmoothing(0);
     document.querySelector("html").style.overflow = "hidden";
 
@@ -1062,51 +1062,51 @@ document.querySelector("#contactform").addEventListener("input", function (e) {
     }
 });
 
-function asciiSplit(el) {
-    const text = el.textContent;
-    el.textContent = "";
-    for (let i = 0; i < text.length; i++) {
-        const ch = text[i];
-        if (ch === "\n") {
-            el.appendChild(document.createTextNode("\n"));
-        } else if (ch === " ") {
-            el.appendChild(document.createTextNode(" "));
-        } else {
-            const span = document.createElement("span");
-            span.textContent = ch;
-            span.classList.add("ch")
-            el.appendChild(span);
-        }
-    }
-}
+// function asciiSplit(el) {
+//     const text = el.textContent;
+//     el.textContent = "";
+//     for (let i = 0; i < text.length; i++) {
+//         const ch = text[i];
+//         if (ch === "\n") {
+//             el.appendChild(document.createTextNode("\n"));
+//         } else if (ch === " ") {
+//             el.appendChild(document.createTextNode(" "));
+//         } else {
+//             const span = document.createElement("span");
+//             span.textContent = ch;
+//             span.classList.add("ch")
+//             el.appendChild(span);
+//         }
+//     }
+// }
 
-const pre = document.querySelector(".ascll_wrap");
+// const pre = document.querySelector(".ascll_wrap");
 
 
-pre.addEventListener("mousemove", (e) => {
-    const ct = pre.getBoundingClientRect();
-    const cmx = e.clientX - ct.left;
-    const cmy = e.clientY - ct.top;
-    const charse = document.querySelectorAll(".ascll_wrap span");
-    charse.forEach(cha => {
-        const cr = cha.getBoundingClientRect();
-        const cx = cr.left - ct.left + cr.width / 2;
-        const cy = cr.top - ct.top + cr.height / 2;
+// pre.addEventListener("mousemove", (e) => {
+//     const ct = pre.getBoundingClientRect();
+//     const cmx = e.clientX - ct.left;
+//     const cmy = e.clientY - ct.top;
+//     const charse = document.querySelectorAll(".ascll_wrap span");
+//     charse.forEach(cha => {
+//         const cr = cha.getBoundingClientRect();
+//         const cx = cr.left - ct.left + cr.width / 2;
+//         const cy = cr.top - ct.top + cr.height / 2;
 
-        const dist = Math.sqrt((cmx - cx) ** 2 + (cmy - cy) ** 2);
-        if (dist < 60) {
-            cha.style.color = "#f87b1b";
-            cha.style.color = "1";
-        } else {
-            cha.style.color = '';
-            cha.style.opacity = '';
-        }
-    })
-})
-pre.addEventListener("mouseleave", function () {
-    const charse = document.querySelectorAll(".ascll_wrap span");
-    charse.forEach(c => {
-        c.style.color = "";
-        c.style.opacity = ""
-    })
-})
+//         const dist = Math.sqrt((cmx - cx) ** 2 + (cmy - cy) ** 2);
+//         if (dist < 60) {
+//             cha.style.color = "#f87b1b";
+//             cha.style.color = "1";
+//         } else {
+//             cha.style.color = '';
+//             cha.style.opacity = '';
+//         }
+//     })
+// })
+// pre.addEventListener("mouseleave", function () {
+//     const charse = document.querySelectorAll(".ascll_wrap span");
+//     charse.forEach(c => {
+//         c.style.color = "";
+//         c.style.opacity = ""
+//     })
+// })
