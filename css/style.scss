@@ -1,8 +1,8 @@
 :root {
-    --main-color: #f87b1b;
+    --main-color: #FF4103;
     --main05-color: rgba(248, 123, 27, 0.5);
     --sub-color: #eee;
-    --black: #000;
+    --black: #141414;
     --black05: rgba(0, 0, 0, 0.5);
 
     --stork-color: #888;
@@ -107,7 +107,7 @@ body {
     }
     &::before {
         content: "";
-        background: var(--sub-color);
+        background: var(--main-color);
         position: absolute;
         left: 0px;
         top: 0px;
@@ -893,7 +893,7 @@ body {
                     pointer-events: none;
                     // mix-blend-mode: difference;
                     left: 10vh;
-                        top: 76vh;
+                        top: 75vh;
                     height: 0;
                     overflow: hidden;
                     display: flex;

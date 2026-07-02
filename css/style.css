@@ -1,9 +1,9 @@
 @charset "UTF-8";
 :root {
-  --main-color: #f87b1b;
+  --main-color: #FF4103;
   --main05-color: rgba(248, 123, 27, 0.5);
   --sub-color: #eee;
-  --black: #000;
+  --black: #141414;
   --black05: rgba(0, 0, 0, 0.5);
   --stork-color: #888;
   --card05-color: rgba(255, 255, 255, 0.05);
@@ -111,7 +111,7 @@ body::before {
 }
 .loding::before {
   content: "";
-  background: var(--sub-color);
+  background: var(--main-color);
   position: absolute;
   left: 0px;
   top: 0px;
@@ -858,7 +858,7 @@ body::before {
   position: absolute;
   pointer-events: none;
   left: 10vh;
-  top: 80vh;
+  top: 75vh;
   height: 0;
   overflow: hidden;
   display: flex;

@@ -788,8 +788,8 @@ class Particle {
         this.vx = (Math.random() - .5) * .3;
         this.vy = (Math.random() - .5) * .3;
         this.alpha = Math.random() * .5 + .1;
-        // this.color = Math.random() > .5 ? '#eee' : '#eee';
-        this.color = '#eee';
+        // this.color = Math.random() > .5 ? '#fF4103' : '#fF4103';
+        this.color = '#fF4103';
     }
     update() {
         this.x += this.vx;
