@@ -630,10 +630,12 @@ body {
                         perspective: 900px;
                         position: relative;
                         z-index: 999;
-                        padding-bottom: 60vh;
+                        padding-bottom: 80vh;
+
                         .works_item {
                             position: sticky;
                             position: -webkit-sticky;
+                            top: 80px;
                             transform: rotateX(0);
                             transform-origin: center top;
                             backface-visibility: hidden; /* 3D 깜빡임 방지 */

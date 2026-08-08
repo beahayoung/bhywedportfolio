@@ -8,7 +8,8 @@ const link = {
     0: "index.html",
     1: "https://beahayoung.github.io/BHY.UI",
     2: "https://www.metarock.co.kr/",
-    3: "https://beahayoung.github.io/paullbassettGrid/"
+    3: "https://beahayoung.github.io/paullbassettGrid/",
+    4: "https://beahayoung.github.io/movie-search-react/"
 }
 window.addEventListener("DOMContentLoaded", function () {
     const data = new Date().getFullYear();
@@ -321,26 +322,25 @@ window.addEventListener("DOMContentLoaded", function () {
 
 
                                 gsap.utils.toArray(".works_item").forEach((selector, i, arr) => {
-
-                                    selector.style.top = (80 + i * 50) + "px";
-                                    gsap.set(selector, {
-                                        y: 0,
-                                    })
-                                    gsap.timeline({
-                                            scrollTrigger: {
-                                                trigger: arr[i + 1],
-                                                start: "top 80%",
-                                                end: "top top",
-                                                scrub: true,
-                                            }
-                                        })
-                                        .to(selector, {
-                                            backgroundColor: "#000",
-                                            ease: 'none',
-                                            duration: 0.1
-                                        })
-
-                                })
+    selector.style.top = (80 + i * 50) + "px"; 
+ const cardInner = selector.querySelector(".card_inner");  // 안쪽 찾기
+    gsap.timeline({
+        scrollTrigger: {
+            trigger: selector,
+            start: "top 20%",
+            endTrigger: arr[i + 1],
+            end: "top top",
+            scrub: true,
+        }
+    })
+    .to(cardInner, {              // ← selector 대신 cardInner
+        "background": "#000",
+        backdropFilter: "none", 
+        rotateX: "-10deg",
+        scale: 0.8 + (i * 0.05),
+        ease: 'none',
+    })
+})
                                 gsap.set(".section3 h2", {
                                     'background-size': '0% 100%',
                                 });
