@@ -1,8 +1,8 @@
-@import '_mixins.scss';
+@import "_mixins.scss";
 
-@include mobile{ 
+@include mobile {
   #wrap {
-     header {
+    header {
       .line {
         height: 1px;
       }
@@ -10,117 +10,143 @@
         display: none;
       }
       .list {
-      .sns {
-        width: 100%!important;
-      }
-    }
-  } 
-  main {
-    .section3  {
-      .project_card {
-        .project_info {
-          left: 1vh!important;
+        .sns {
+          width: 100% !important;
         }
       }
-    } 
-  }
-  }
-}
-
-@include tablet{
-  .cursor {
-    display: none;
-  }
- #wrap {
-  header {
-    .list {
-      .menu_list {
-        display: none;
-      }
-      .sns {
-        width: auto;
-      }
     }
-  } 
-  main {
-    .scroll-wrap {
-      .title {
-        -webkit-text-stroke: 1px var(--sub-color);
-      }
-      .pir {
-        top: 2%;
-            font-size: 3vw;
-      }
-      .sub_title {
-        font-size: 5vw;
-      }
-    }
-    .section2 {
-      .text_box_wrap {
-        flex-wrap: wrap;
-                justify-content: flex-end;
-                        padding-top: 30vh;
-        .text_mask_wrap {
-          width: 100%;
-          .mask {
-            text-align: left;
+    main {
+      .section3 {
+        .project_card {
+          .project_info {
+            left: 1vh !important;
           }
         }
       }
-      .marquee {
-            font-size: 3rem;
-                margin-left: -15px;
-                    padding: 25px 0px;
-      }
-      .projects{
-        .inner {
-          .works_list {
-            .works_cont {
-              width: 100%;
-            }
-          } 
-        } 
-      }
     }
-    .section3  {
-      .works_num {
-            top: 73px;
-    right: 16px;
-      }
-      .project_card {
-        .project_info {
-              font-size: 3vw;
-              left: 4vh;
-    top: 69vh;
-    p {
-          font-size: 2.5vw;
-    }
-        }
-      }
-    } 
-    .read_more_btn {
+    footer {
       &.on {
-        left: 50%;
-        top: 50%;
-      }
-    }
-    .section5 {
-      .contact_wrap {
-        flex-wrap: wrap;
-        gap: 0;
-        height: 60%!important;
-        justify-content: center;
-        &>div {
-          flex: unset!important;
-          width: 100%!important;
+        .footer_wrap {
+          div {
+            a {
+                  font-size: 0.85rem;
+            }
+          }
         }
       }
     }
+   
   }
-  footer {
-    .ascll_wrap {
-      font-size: 1.2vw;
+}
+
+@include tablet {
+  .cursor {
+    display: none;
+  }
+  #wrap {
+    header {
+      .list {
+        .menu_list {
+          display: none;
+        }
+        .sns {
+          width: auto;
+        }
+      }
+    }
+    main {
+      .scroll-wrap {
+        .title {
+          -webkit-text-stroke: 1px var(--sub-color);
+        }
+        .pir {
+          top: 2%;
+          font-size: 3vw;
+        }
+        .sub_title {
+          font-size: 5vw;
+        }
+      }
+      .section2 {
+        .text_box_wrap {
+          flex-wrap: wrap;
+          justify-content: flex-end;
+          padding-top: 30vh;
+          .text_mask_wrap {
+            width: 100%;
+            .mask {
+              text-align: left;
+            }
+          }
+        }
+        .marquee {
+          font-size: 3rem;
+          margin-left: -15px;
+          padding: 25px 0px;
+        }
+        .projects {
+          .inner {
+            .works_list {
+              .works_cont {
+                width: 100%;
+              }
+            }
+          }
+        }
+      }
+      .section3 {
+        .works_num {
+          top: 73px;
+          right: 16px;
+        }
+        .project_card {
+          .project_info {
+            font-size: 3vw;
+            left: 4vh;
+            top: 69vh;
+            p {
+              font-size: 2.5vw;
+            }
+          }
+        }
+      }
+      .read_more_btn {
+        &.on {
+          left: 50%;
+          top: 50%;
+        }
+      }
+      .section4 {
+        .skills_list {
+          gap: unset;
+          .skills_item {
+                    width: 100%;
+        border: unset;
+        background: transparent !important;
+        border-bottom: 1px solid var(--card12-color);
+        border-radius: unset;
+        font-size: 34px !important;
+
+          }
+        }
+      }
+      .section5 {
+        .contact_wrap {
+          flex-wrap: wrap;
+          gap: 0;
+          height: 60% !important;
+          justify-content: center;
+          & > div {
+            flex: unset !important;
+            width: 100% !important;
+          }
+        }
+      }
+    }
+    footer {
+      .ascll_wrap {
+        font-size: 1.2vw;
+      }
     }
   }
- }
 }

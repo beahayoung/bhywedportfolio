@@ -11,6 +11,9 @@
   #wrap main .section3 .project_card .project_info {
     left: 1vh !important;
   }
+  #wrap footer.on .footer_wrap div a {
+    font-size: 0.85rem;
+  }
 }
 @media (max-width: 1023px) {
   .cursor {
@@ -66,6 +69,17 @@
   #wrap main .read_more_btn.on {
     left: 50%;
     top: 50%;
+  }
+  #wrap main .section4 .skills_list {
+    gap: unset;
+  }
+  #wrap main .section4 .skills_list .skills_item {
+    width: 100%;
+    border: unset;
+    background: transparent !important;
+    border-bottom: 1px solid var(--card12-color);
+    border-radius: unset;
+    font-size: 34px !important;
   }
   #wrap main .section5 .contact_wrap {
     flex-wrap: wrap;

@@ -8,8 +8,7 @@ const link = {
     0: "index.html",
     1: "https://beahayoung.github.io/BHY.UI",
     2: "https://www.metarock.co.kr/",
-    3: "https://beahayoung.github.io/paullbassettGrid/",
-    4: "https://movie-search-react-umber-three.vercel.app/"
+    3: "https://movie-search-react-umber-three.vercel.app/"
 }
 window.addEventListener("DOMContentLoaded", function () {
     const data = new Date().getFullYear();
