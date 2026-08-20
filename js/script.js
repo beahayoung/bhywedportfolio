@@ -333,8 +333,8 @@ window.addEventListener("DOMContentLoaded", function () {
         }
     })
     .to(cardInner, {              // ← selector 대신 cardInner
-        "background": "#000",
-        backdropFilter: "none", 
+        // "background": "#000",
+        // backdropFilter: "none", 
         rotateX: "-10deg",
         scale: 0.8 + (i * 0.05),
         ease: 'none',
