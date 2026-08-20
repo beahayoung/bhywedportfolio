@@ -501,9 +501,9 @@ window.addEventListener("DOMContentLoaded", function () {
                                 gsap.set(".circle_wrap .circle", {
                                     scale: 0
                                 });
-                                gsap.set(".section5 p, .section5 a", {
-                                    opacity: 0,
-                                });
+                                // gsap.set(".section5 p, .section5 a", {
+                                //     opacity: 0,
+                                // });
                                 gsap.set("footer", {
 
                                 });
@@ -512,7 +512,7 @@ window.addEventListener("DOMContentLoaded", function () {
                                         scrollTrigger: {
                                             trigger: '.section5',
                                             start: 'top 90%',
-                                            end: '+=250%', // 길게 (3단계)
+                                            end: '+=200%', // 길게 (3단계)
                                             scrub: 1,
                                             invalidateOnRefresh: true,
                                             onEnter: () => {
@@ -542,7 +542,7 @@ window.addEventListener("DOMContentLoaded", function () {
                                     .to(".section5 p, .section5 a", {
                                         opacity: 1,
                                         stagger: 0.1,
-                                        duration: 0.5,
+     
                                     }, ">")
                                     .to(".section5 .contact_wrap", {
                                         yPercent: -100,
